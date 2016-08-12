@@ -1,6 +1,6 @@
 ﻿namespace TSQLManagement
 {
-    partial class Form1
+    partial class EmployeeForm
     {
         /// <summary>
         /// Required designer variable.
@@ -165,7 +165,7 @@
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // EmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -173,8 +173,8 @@
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.dgvDataList);
             this.Controls.Add(this.panel1);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "EmployeeForm";
+            this.Text = "EmployeeForm";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

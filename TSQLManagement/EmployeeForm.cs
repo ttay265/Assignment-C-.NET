@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace TSQLManagement
 {
-    public partial class Form1 : Form
+    public partial class EmployeeForm : Form
     {
-        public Form1()
+        public EmployeeForm()
         {
             InitializeComponent();
         }
