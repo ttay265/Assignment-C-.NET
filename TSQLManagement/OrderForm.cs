@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace TSQLManagement
 {
+    
     public partial class OrderForm : Form
     {
+        TSQLFundamentals2008Entities entities = new TSQLFundamentals2008Entities();
         public OrderForm()
         {
             InitializeComponent();
+            LoadOrderInfo();
+        }
+
+        void LoadOrderInfo() {
+            dgvDataList.DataSource = entities.Orders.ToList();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -48,6 +55,11 @@ namespace TSQLManagement
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void dgvDataList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
