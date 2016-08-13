@@ -33,5 +33,6 @@ namespace TSQLManagement
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Shipper> Shippers { get; set; }
+        public DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }
