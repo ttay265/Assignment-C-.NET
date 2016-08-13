@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'Z:\Source\Repos\Assignment-C-.NET\TSQLManagement\Model1.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\ttay2_000\Source\Repos\Assignment-C-.NET(2)\TSQLManagement\Model1.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
