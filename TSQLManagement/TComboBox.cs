@@ -17,7 +17,7 @@ namespace TSQLManagement
         {
             InitializeComponent();
             this.DropDownHeight = 100;
-            this.DropDownStyle = ComboBoxStyle.DropDown;
+            this.DropDownStyle = ComboBoxStyle.Simple;
         }
 
         protected override void OnPaint(PaintEventArgs pe)
@@ -31,24 +31,16 @@ namespace TSQLManagement
             {
                 if (Regex.IsMatch(this.Text, @"^\d+$"))
                 {
-                    if (this.Text.Count() > 1)
+                    int MatchedID = int.Parse(this.Text);
+                    foreach (int id in (List<int>)this.DataSource)
                     {
-                        int MatchedCustomerID = int.Parse(this.Text);
-                        foreach (int id in (List<int>)this.DataSource)
+                        if (id == MatchedID)
                         {
-                            if (id == MatchedCustomerID)
-                            {
-                                this.SelectedItem = MatchedCustomerID;
-                                this.ForeColor = Color.Black;
-                                this.DroppedDown = true;
-                                return;
-                            }
+                            this.SelectedItem = MatchedID;
+                            this.ForeColor = Color.Black;
+                            this.DroppedDown = true;
+                            return;
                         }
-                    }
-                    else
-                    {
-                        this.ForeColor = Color.Black;
-                        return;
                     }
                 }
                 this.DroppedDown = false;

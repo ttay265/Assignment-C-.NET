@@ -15,6 +15,7 @@ namespace TSQLManagement
     public partial class OrderForm : Form
     {
         TSQLFundamentals2008Entities entities = new TSQLFundamentals2008Entities();
+        Order CurrentOrder = new Order();
         public OrderForm()
         {
             InitializeComponent();
@@ -27,17 +28,24 @@ namespace TSQLManagement
             }
             CustomerIDList.Sort();
             cbCustomerID.DataSource = CustomerIDList;
-            cbCustomerID.SelectedIndex = -1;
             var EmployeeIDs = from Employee in entities.Employees
                               select Employee.empid;
             List<int> EmployeeIDList = new List<int>();
-            foreach (var x in CustomerIDs)
+            foreach (var x in EmployeeIDs)
             {
                 EmployeeIDList.Add(x);
             }
             EmployeeIDList.Sort();
             cbEmployeeID.DataSource = EmployeeIDList;
-            cbEmployeeID.SelectedIndex = -1;
+            var ShipperIDs = from Shipper in entities.Shippers
+                              select Shipper.shipperid;
+            List<int> ShipperIDList = new List<int>();
+            foreach (var x in ShipperIDs)
+            {
+                ShipperIDList.Add(x);
+            }
+            ShipperIDList.Sort();
+            cbShipperID.DataSource = ShipperIDList;
             dgvDataList.AutoSize = true;
             dgvDataList.MaximumSize = new Size(1300, 220);
             dgvDataList.ScrollBars = ScrollBars.Vertical;
@@ -83,7 +91,7 @@ namespace TSQLManagement
 
         }
 
-        private void textBox9_TextChanged(object sender, EventArgs e)
+        private void txtShipName_TextChanged(object sender, EventArgs e)
         {
 
         }
@@ -93,9 +101,23 @@ namespace TSQLManagement
 
         }
 
-        private void textBox8_TextChanged(object sender, EventArgs e)
+        private void txtFreight_TextChanged(object sender, EventArgs e)
         {
-
+            decimal freight;
+            if (txtFreight.Text.Equals("."))
+            {
+                txtFreight.Text ="0.";
+                txtFreight.SelectionStart = 2;
+                txtFreight.SelectionLength = 0;
+            }
+            if (decimal.TryParse(txtFreight.Text, out freight))
+            {
+                txtFreight.ForeColor = Color.Black;
+            }
+            else
+            {
+                txtFreight.ForeColor = Color.Red;
+            }
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -126,5 +148,32 @@ namespace TSQLManagement
         {
 
         }
+
+        private void txtShipPostalCode_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        bool ValidateOrder()
+        {
+            foreach (Control control in this.Controls)
+            {
+                if (control.ForeColor == Color.Red || string.IsNullOrEmpty(control.Text))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void cbCustomerID_TextChanged(object sender, EventArgs e)
+        {
+            int CustomerID;
+            if (int.TryParse(cbCustomerID.Text, out CustomerID))
+            {
+                CurrentOrder.custid = CustomerID;
+            }
+        }
+
     }
 }

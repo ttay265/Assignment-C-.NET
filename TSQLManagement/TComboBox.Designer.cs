@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.SuspendLayout();
+            this.SelectedIndex = -1;
             // 
             // TComboBox
             // 
