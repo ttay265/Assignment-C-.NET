@@ -22,6 +22,13 @@ namespace TSQLManagement
         void LoadEmpoyeeInfo()
         {
             dgvDataList.DataSource = entity.Employees.ToList();
+            for (int i = 0; i < dgvDataList.Columns.Count; i++ )
+            {
+                if(new string [] {"Employees1", "Employee1", "Orders"}.Contains(dgvDataList.Columns[i].HeaderText))
+                {
+                    dgvDataList.Columns[i].Visible = false;
+                }
+            }
         }
 
         private void dgvDataList_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -58,100 +65,99 @@ namespace TSQLManagement
 
         }
 
-        //bool validateInput()
-        //{
-        //    bool bError = false;
-          
-        //    string lastname = txtlastname.Text;
-        //    if (lastname.Length == 0)
-        //    {
-        //        errorProvider2.SetError(txtlastname, "Please enter");
-        //        bError = true;
-        //    }
-        //    string firstname = txtfirstname.Text;
-        //    if (firstname.Length == 0)
-        //    {
-        //        errorProvider3.SetError(txtfirstname, "Please enter");
-        //        bError = true;
-        //    }
-        //    string title = txttitle.Text;
-        //    if (title.Length == 0)
-        //    {
-        //        errorProvider4.SetError(txttitle, "Please enter");
-        //        bError = true;
-        //    }
-        //    string titleofcourtesy = txttiteofcourtesy.Text;
-        //    if (titleofcourtesy.Length == 0)
-        //    {
-        //        errorProvider5.SetError(txttiteofcourtesy, "Please enter");
-        //        bError = true;
-        //    }
-        //    DateTime currDate = DateTime.Now;
-        //    int currYear = currDate.Year;
-        //    DateTime dateOfBirth = dtpbirthday.Value;
-        //    int birthYear = dateOfBirth.Year;
+        bool validateInput()
+        {
+            bool bError = false;
 
-        //    if (currYear - birthYear < 18)
-        //    {
-        //        errorProvider6.SetError(dtpbirthday, "Age must be greater than 18 or equal 18");
-        //        bError = true;
-        //    }
-        //    string hiredate = dtphiredate.Text;
-        //    if (hiredate.Length == 0)
-        //    {
-        //        errorProvider7.SetError(dtphiredate, "Id employee is only digit");
-        //        bError = true;
-        //    }
-        //    string address = txtaddress.Text;
-        //    if (address.Length == 0)
-        //    {
-        //        errorProvider8.SetError(txtaddress, "Please enter");
-        //        bError = true;
-        //    }
-        //    string city = txtcity.Text;
-        //    if (city.Length == 0)
-        //    {
-        //        errorProvider9.SetError(txtcity, "Please enter");
-        //        bError = true;
-        //    }
-        //    string region = txtregion.Text;
-        //    if (region.Length == 0)
-        //    {
-        //        errorProvider10.SetError(txtregion, "Please enter");
-        //        bError = true;
-        //    }
-        //    string postalcode = txtpostalcode.Text;
-        //    if (postalcode.Length == 0)
-        //    {
-        //        errorProvider11.SetError(txtpostalcode, "Please enter");
-        //        bError = true;
-        //    }
-        //    string country = txtcountry.Text;
-        //    if (country.Length == 0)
-        //    {
-        //        errorProvider12.SetError(txtcountry, "Please enter country");
-        //        bError = true;
-        //    }
-        //    string phone = txtphone.Text;
-        //    if (phone.Length == 0)
-        //    {
-        //        errorProvider13.SetError(txtphone, "Please enter phone number !");
-        //        bError = true;
-        //    }
-        //    string mgrid = txtmgrid.Text;
-        //    if (mgrid.Length == 0)
-        //    {
-        //        errorProvider14.SetError(txtmgrid, "Id manager is only digit");
-        //        bError = true;
-        //    }
+            string lastname = txtlastname.Text;
+            if (lastname.Length == 0)
+            {
+                errorProvider1.SetError(txtlastname, "Please enter Lastname");
+                bError = true;
+            }
+            string firstname = txtfirstname.Text;
+            if (firstname.Length == 0)
+            {
+                errorProvider2.SetError(txtfirstname, "Please enter FirstName");
+                bError = true;
+            }
+            string title = txttitle.Text;
+            if (title.Length == 0)
+            {
+                errorProvider3.SetError(txttitle, "Please enter Title");
+                bError = true;
+            }
+            string titleofcourtesy = txttiteofcourtesy.Text;
+            if (titleofcourtesy.Length == 0)
+            {
+                errorProvider4.SetError(txttiteofcourtesy, "Please enter Title of Courtesy");
+                bError = true;
+            }
+            //DateTime currDate = DateTime.Now;
+            //int currYear = currDate.Year;
+            //DateTime dateOfBirth = dtpbirthday.Value;
+            //int birthYear = dateOfBirth.Year;
 
-        //    if (bError == true)
-        //    {
-        //        return false;
-        //    }
+            //if (currYear - birthYear < 18)
+            //{
+            //    errorProvider6.SetError(dtpbirthday, "Age must be greater than 18 or equal 18");
+            //    bError = true;
+            //}
+            //string hiredate = dtphiredate.Text;
+            //if ()
+            //{
+            //    errorProvider7.SetError(dtphiredate, "I");
+            //    bError = true;
+            //}
+            string address = txtaddress2.Text;
+            if (address.Length == 0)
+            {
+                errorProvider5.SetError(txtaddress, "Please enter Address");
+                bError = true;
+            }
+            string city = txtcity2.Text;
+            if (city.Length == 0)
+            {
+                errorProvider6.SetError(txtcity, "Please enter City");
+                bError = true;
+            }
+            string region = txtregion.Text;
+            if (region.Length == 0)
+            {
+                errorProvider9.SetError(txtregion, "Please enter");   // Allow Null
+                bError = true;
+            }
+            string postalcode = txtpostalcode.Text;
+            if (postalcode.Length == 0)
+            {
+                errorProvider10.SetError(txtpostalcode, "Please enter");  // Allow Null
+                bError = true;
+            }
+            string country = txtcountry.Text;
+            if (country.Length == 0)
+            {
+                errorProvider7.SetError(txtcountry, "Please enter ountry");
+                bError = true;
+            }
+            if (txtphone.MaskCompleted == false)
+            {
+                errorProvider8.SetError(txtphone, "Please enter phone number !");
+                bError = true;
+            }
+            string mgrid = txtmgrid.Text;
+            if (mgrid.Length == 0)
+            {
+                errorProvider11.SetError(txtmgrid, "Id manager is only digit");  // Allow Null
+                bError = true;
+            }
 
-        //    return true;
-        //}
+            if (bError == true)
+            {
+                return false;
+            }
+
+            return true;
+        }
         void addEmploee()
         {
             Employee emp = new Employee();
@@ -175,10 +181,73 @@ namespace TSQLManagement
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            addEmploee();
-            LoadEmpoyeeInfo();
+            if(validateInput() == false)
+            {
+                return;
+            }
+            try
+            {
+                addEmploee();
+                LoadEmpoyeeInfo();
+                MessageBox.Show("Add Employee Successful !!!");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Add Employee Fail !!!");
+            }
         }
 
+
+        void updateEmployee()
+        {
+            DataGridViewRow r = dgvDataList.SelectedRows[0];
+            Employee emp = null;
+            foreach(Employee e in entity.Employees)
+            {
+                if (e.empid == (int)r.Cells[0].Value)
+                {
+                    emp = e;
+                    break;
+                }
+            }
+            if(emp != null)
+            {
+                emp.lastname = txtlastname.Text;
+                emp.firstname = txtfirstname.Text;
+                emp.title = txttitle.Text;
+                emp.titleofcourtesy = txttiteofcourtesy.Text;
+                emp.birthdate = dtpbirthday.Value;
+                emp.hiredate = dtphiredate.Value;
+                emp.address = txtaddress2.Text;
+                emp.city = txtcity2.Text;
+                emp.region = txtregion.Text;
+                emp.postalcode = txtpostalcode.Text;
+                emp.country = txtcountry.Text;
+                emp.phone = txtphone.Text;
+                emp.mgrid = Int32.Parse(txtmgrid.Text);
+
+                entity.SaveChanges();
+            }
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (validateInput() == false)
+            {
+                return;
+            }
+            try
+            {
+                updateEmployee();
+                LoadEmpoyeeInfo();
+                MessageBox.Show("Update Employee Succesfull !!!");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Update Employee Fail !!!");
+            }
+        }
         void deleteEmployee()
         {
             if(dgvDataList.SelectedRows.Count > 0)
@@ -228,5 +297,7 @@ namespace TSQLManagement
             txtphone.Text = "";
             txtmgrid.Text = "";
         }
+
+      
     }
 }

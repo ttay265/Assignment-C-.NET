@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtphone = new System.Windows.Forms.MaskedTextBox();
             this.txtaddress2 = new System.Windows.Forms.TextBox();
             this.txtcity2 = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -59,6 +60,7 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvDataList = new System.Windows.Forms.DataGridView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
             this.dtphiredate = new System.Windows.Forms.DateTimePicker();
             this.dtpbirthday = new System.Windows.Forms.DateTimePicker();
             this.txttiteofcourtesy = new System.Windows.Forms.TextBox();
@@ -83,11 +85,6 @@
             this.errorProvider9 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider10 = new System.Windows.Forms.ErrorProvider(this.components);
             this.errorProvider11 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorProvider12 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorProvider13 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.errorProvider14 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label18 = new System.Windows.Forms.Label();
-            this.txtphone = new System.Windows.Forms.MaskedTextBox();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -105,9 +102,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider10)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider11)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider12)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider14)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -145,6 +139,14 @@
             this.groupBox2.TabIndex = 57;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Employee Information";
+            // 
+            // txtphone
+            // 
+            this.txtphone.Location = new System.Drawing.Point(325, 59);
+            this.txtphone.Mask = "(+999)000-0000";
+            this.txtphone.Name = "txtphone";
+            this.txtphone.Size = new System.Drawing.Size(159, 20);
+            this.txtphone.TabIndex = 73;
             // 
             // txtaddress2
             // 
@@ -294,9 +296,9 @@
             this.flowLayoutPanel1.Controls.Add(this.btnAdd);
             this.flowLayoutPanel1.Controls.Add(this.btnUpdate);
             this.flowLayoutPanel1.Controls.Add(this.btnDelete);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(101, 365);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(59, 389);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(163, 61);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(352, 53);
             this.flowLayoutPanel1.TabIndex = 6;
             // 
             // btnNew
@@ -321,16 +323,17 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(3, 32);
+            this.btnUpdate.Location = new System.Drawing.Point(165, 3);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 3;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(84, 32);
+            this.btnDelete.Location = new System.Drawing.Point(246, 3);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 5;
@@ -379,7 +382,7 @@
             this.dgvDataList.Location = new System.Drawing.Point(560, 130);
             this.dgvDataList.Name = "dgvDataList";
             this.dgvDataList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDataList.Size = new System.Drawing.Size(641, 285);
+            this.dgvDataList.Size = new System.Drawing.Size(641, 253);
             this.dgvDataList.TabIndex = 1;
             this.dgvDataList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDataList_CellClick);
             // 
@@ -405,6 +408,15 @@
             this.groupBox1.TabIndex = 56;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Basic Information";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(95, 36);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(18, 13);
+            this.label18.TabIndex = 70;
+            this.label18.Text = "ID";
             // 
             // dtphiredate
             // 
@@ -565,35 +577,6 @@
             // 
             this.errorProvider11.ContainerControl = this;
             // 
-            // errorProvider12
-            // 
-            this.errorProvider12.ContainerControl = this;
-            // 
-            // errorProvider13
-            // 
-            this.errorProvider13.ContainerControl = this;
-            // 
-            // errorProvider14
-            // 
-            this.errorProvider14.ContainerControl = this;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(95, 36);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(18, 13);
-            this.label18.TabIndex = 70;
-            this.label18.Text = "ID";
-            // 
-            // txtphone
-            // 
-            this.txtphone.Location = new System.Drawing.Point(325, 59);
-            this.txtphone.Mask = "(+999)000-0000";
-            this.txtphone.Name = "txtphone";
-            this.txtphone.Size = new System.Drawing.Size(159, 20);
-            this.txtphone.TabIndex = 73;
-            // 
             // EmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -625,9 +608,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider10)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider11)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider12)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider14)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -677,6 +657,8 @@
         private System.Windows.Forms.TextBox txtcity2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.MaskedTextBox txtphone;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ErrorProvider errorProvider2;
         private System.Windows.Forms.ErrorProvider errorProvider3;
@@ -688,11 +670,6 @@
         private System.Windows.Forms.ErrorProvider errorProvider9;
         private System.Windows.Forms.ErrorProvider errorProvider10;
         private System.Windows.Forms.ErrorProvider errorProvider11;
-        private System.Windows.Forms.ErrorProvider errorProvider12;
-        private System.Windows.Forms.ErrorProvider errorProvider13;
-        private System.Windows.Forms.ErrorProvider errorProvider14;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.MaskedTextBox txtphone;
     }
 }
 
