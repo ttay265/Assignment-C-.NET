@@ -16,6 +16,8 @@ namespace TSQLManagement
         public TComboBox()
         {
             InitializeComponent();
+            this.DropDownHeight = 100;
+            this.DropDownStyle = ComboBoxStyle.DropDown;
         }
 
         protected override void OnPaint(PaintEventArgs pe)
@@ -32,9 +34,9 @@ namespace TSQLManagement
                     if (this.Text.Count() > 1)
                     {
                         int MatchedCustomerID = int.Parse(this.Text);
-                        foreach (string id in (List<string>)this.DataSource)
+                        foreach (int id in (List<int>)this.DataSource)
                         {
-                            if (id.Contains(this.Text))
+                            if (id == MatchedCustomerID)
                             {
                                 this.SelectedItem = MatchedCustomerID;
                                 this.ForeColor = Color.Black;
@@ -45,6 +47,7 @@ namespace TSQLManagement
                     }
                     else
                     {
+                        this.ForeColor = Color.Black;
                         return;
                     }
                 }

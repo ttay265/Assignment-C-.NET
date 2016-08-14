@@ -20,20 +20,20 @@ namespace TSQLManagement
             InitializeComponent();
             var CustomerIDs = from Customer in entities.Customers
                               select Customer.custid;
-            List<string> CustomerIDList = new List<string>();
+            List<int> CustomerIDList = new List<int>();
             foreach (var x in CustomerIDs)
             {
-                CustomerIDList.Add(x.ToString());
+                CustomerIDList.Add(x);
             }
             CustomerIDList.Sort();
             cbCustomerID.DataSource = CustomerIDList;
             cbCustomerID.SelectedIndex = -1;
             var EmployeeIDs = from Employee in entities.Employees
                               select Employee.empid;
-            List<string> EmployeeIDList = new List<string>();
+            List<int> EmployeeIDList = new List<int>();
             foreach (var x in CustomerIDs)
             {
-                EmployeeIDList.Add(x.ToString());
+                EmployeeIDList.Add(x);
             }
             EmployeeIDList.Sort();
             cbEmployeeID.DataSource = EmployeeIDList;
@@ -41,7 +41,7 @@ namespace TSQLManagement
             dgvDataList.AutoSize = true;
             dgvDataList.MaximumSize = new Size(1300, 220);
             dgvDataList.ScrollBars = ScrollBars.Vertical;
-            LoadOrderInfo();
+            LoadOrderInfo(); 
         }
 
         void LoadOrderInfo()
@@ -120,6 +120,11 @@ namespace TSQLManagement
 
         private void cbCustomerID_DropDownClosed(object sender, EventArgs e)
         {
+        }
+
+        private void employeeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
