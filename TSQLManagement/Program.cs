@@ -16,8 +16,8 @@ namespace TSQLManagement
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new OrderDetailsForm());
-            Application.Run(new ProductsForm());
+            Application.Run(new OrderDetailsForm());
+            //Application.Run(new ProductsForm());
         }
     }
 }

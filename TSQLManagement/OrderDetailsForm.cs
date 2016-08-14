@@ -12,10 +12,20 @@ namespace TSQLManagement
 {
     public partial class OrderDetailsForm : Form
     {
+        TSQLFundamentals2008Entities Entity = new TSQLFundamentals2008Entities();
         public OrderDetailsForm()
         {
             InitializeComponent();
+            loadCombox();
 
+        }
+        void loadCombox()
+        {
+            cbOrderId.DataSource = Entity.Orders.ToList();
+            cbOrderId.DisplayMember = "orderid";
+
+            cbProductId.DataSource = Entity.Products.ToList();
+            cbProductId.DisplayMember= "productid";
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -34,6 +44,16 @@ namespace TSQLManagement
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbOrderId_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
         {
 
         }

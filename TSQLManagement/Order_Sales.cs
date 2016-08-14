@@ -21,5 +21,25 @@ namespace TSQLManagement
         {
 
         }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnNew_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Order_Sales_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

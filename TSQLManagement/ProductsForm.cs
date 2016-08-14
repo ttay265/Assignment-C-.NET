@@ -17,7 +17,7 @@ namespace TSQLManagement
         {
             InitializeComponent();
             dgvDataList.AutoSize = true;
-            dgvDataList.MaximumSize = new Size(660, 300);
+            dgvDataList.MaximumSize = new Size(660, 255);
             this.AutoSize = true;
             loadProductInfo();
         }
