@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.error = new System.Windows.Forms.Label();
+            this.error = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
             this.cbDiscon = new System.Windows.Forms.CheckBox();
             this.txtProductid = new System.Windows.Forms.Label();
             this.txtUnitprice = new System.Windows.Forms.TextBox();
@@ -54,44 +54,44 @@
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvDataList = new System.Windows.Forms.DataGridView();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.panel1.SuspendLayout();
+            this.error.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.error);
-            this.panel1.Controls.Add(this.cbDiscon);
-            this.panel1.Controls.Add(this.txtProductid);
-            this.panel1.Controls.Add(this.txtUnitprice);
-            this.panel1.Controls.Add(this.txtCategoryId);
-            this.panel1.Controls.Add(this.txtSupplierId);
-            this.panel1.Controls.Add(this.txtProductName);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.flowLayoutPanel1);
-            this.panel1.Location = new System.Drawing.Point(31, 26);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(404, 276);
-            this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
             // error
             // 
-            this.error.AutoSize = true;
-            this.error.Font = new System.Drawing.Font("Arial Unicode MS", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.error.ForeColor = System.Drawing.Color.Red;
-            this.error.Location = new System.Drawing.Point(17, 182);
+            this.error.Controls.Add(this.label8);
+            this.error.Controls.Add(this.cbDiscon);
+            this.error.Controls.Add(this.txtProductid);
+            this.error.Controls.Add(this.txtUnitprice);
+            this.error.Controls.Add(this.txtCategoryId);
+            this.error.Controls.Add(this.txtSupplierId);
+            this.error.Controls.Add(this.txtProductName);
+            this.error.Controls.Add(this.label7);
+            this.error.Controls.Add(this.label6);
+            this.error.Controls.Add(this.label5);
+            this.error.Controls.Add(this.label4);
+            this.error.Controls.Add(this.label1);
+            this.error.Controls.Add(this.label3);
+            this.error.Controls.Add(this.flowLayoutPanel1);
+            this.error.Location = new System.Drawing.Point(31, 26);
             this.error.Name = "error";
-            this.error.Size = new System.Drawing.Size(0, 20);
-            this.error.TabIndex = 12;
+            this.error.Size = new System.Drawing.Size(404, 276);
+            this.error.TabIndex = 0;
+            this.error.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.ForeColor = System.Drawing.Color.Red;
+            this.label8.Location = new System.Drawing.Point(17, 185);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(10, 14);
+            this.label8.TabIndex = 12;
+            this.label8.Text = ".";
             // 
             // cbDiscon
             // 
@@ -305,12 +305,12 @@
             this.ClientSize = new System.Drawing.Size(1069, 525);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.dgvDataList);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.error);
             this.Name = "ProductsForm";
             this.Text = "Products";
             this.Load += new System.EventHandler(this.OrderDetailsForm_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.error.ResumeLayout(false);
+            this.error.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
@@ -322,7 +322,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel error;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dgvDataList;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
@@ -346,7 +346,7 @@
         private System.Windows.Forms.Label txtProductid;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.CheckBox cbDiscon;
-        private System.Windows.Forms.Label error;
+        private System.Windows.Forms.Label label8;
     }
 }
 

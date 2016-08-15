@@ -16,9 +16,11 @@ namespace TSQLManagement
         public ProductsForm()
         {
             InitializeComponent();
+
             dgvDataList.AutoSize = true;
             dgvDataList.MaximumSize = new Size(660, 255);
             this.AutoSize = true;
+
             loadProductInfo();
         }
 
@@ -55,9 +57,10 @@ namespace TSQLManagement
             }
             try
             {
+
                 addProduct();
+
                 loadProductInfo();
-                MessageBox.Show("Add Thanh cong");
 
             }
             catch (Exception)
@@ -69,9 +72,13 @@ namespace TSQLManagement
         private void addProduct()
         {
             Product pro = new Product();
+
             pro.productname = txtProductName.Text;
             pro.supplierid = Int32.Parse(txtSupplierId.Text);
-            pro.unitprice = Int32.Parse(txtUnitprice.Text);
+            pro.categoryid = Int32.Parse(txtCategoryId.Text);
+            pro.unitprice = Decimal.Parse(txtUnitprice.Text);
+
+
             if (cbDiscon.Checked)
             {
                 pro.discontinued = true;
@@ -81,40 +88,43 @@ namespace TSQLManagement
                 pro.discontinued = false;
             }
 
+            Entity.Products.Add(pro);
+            Entity.SaveChanges();
         }
 
         bool validateInput()
         {
-            bool bError = false;
 
-            String productname = txtProductName.Text;
-            if (productname.Length== 0)
+
+            string productname = txtProductName.Text;
+            if (productname.Length == 0)
             {
-                error.Text = "pls enter you product name";
+                label8.Text = "pls enter you product name";
                 txtProductName.Select();
-                bError = true;
+                return true;
             }
 
             try
             {
-                int supplierid = Int32.Parse(txtSupplierId.Text);
+                Int32 supplierid = Int32.Parse(txtSupplierId.Text);
             }
             catch (Exception)
             {
-                error.Text = "Supplier id is number !!";
+                label8.Text = "Supplier id is number !!";
                 txtSupplierId.Select();
-                bError = true;
+                return true;
             }
+
 
             try
             {
-                int categoryid = Int32.Parse(txtCategoryId.Text);
+                Int32 categoryid = Int32.Parse(txtCategoryId.Text);
             }
             catch (Exception)
             {
-                error.Text = "Category Id is number !!!";
+                label8.Text = "Category Id is number !!!";
                 txtCategoryId.Select();
-                bError = true;
+                return true;
             }
 
             try
@@ -123,33 +133,24 @@ namespace TSQLManagement
             }
             catch (Exception)
             {
-                error.Text = "Unitprice is number !!";
+                label8.Text = "Unitprice is number !!";
                 txtUnitprice.Select();
-                bError = true;
+                return true;
             }
 
 
-            if (bError == true)
-            {
-                return false;
-
-            }
-            else
-            {
-                error.Text = "";
-
-            }
+            label8.Text = "";
             return true;
         }
 
         private void loadProductInfo()
         {
-            
+
             dgvDataList.DataSource = Entity.Products.ToList();
-           // dgvDataList.Columns[2].Visible = false;
+            // dgvDataList.Columns[2].Visible = false;
             for (int i = 0; i < dgvDataList.Columns.Count; i++)
             {
-                if (new String []{"Category","Supplier"}
+                if (new String[] { "Category", "Supplier" }
                     .Contains(dgvDataList.Columns[i].HeaderText))
                 {
                     dgvDataList.Columns[i].Visible = false;
@@ -164,7 +165,7 @@ namespace TSQLManagement
 
         private void dgvDataList_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvDataList.SelectedRows.Count>0)
+            if (dgvDataList.SelectedRows.Count > 0)
             {
                 DataGridViewRow r = dgvDataList.SelectedRows[0];
 
@@ -190,12 +191,12 @@ namespace TSQLManagement
             {
                 cbDiscon.Checked = false;
             }
-            
+
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (validateInput()== false)
+            if (validateInput() == false)
             {
                 return;
             }
@@ -218,13 +219,13 @@ namespace TSQLManagement
             Product pro = null;
             foreach (Product p in Entity.Products)
             {
-                if (p.productid== (int)r.Cells[0].Value)
+                if (p.productid == (Int32)r.Cells[0].Value)
                 {
                     pro = p;
                     break;
                 }
             }
-            if (pro!=null)
+            if (pro != null)
             {
                 pro.productname = txtProductName.Text;
                 pro.supplierid = Int32.Parse(txtSupplierId.Text);
@@ -246,23 +247,32 @@ namespace TSQLManagement
         private void btnDelete_Click(object sender, EventArgs e)
         {
             deleteProduct();
+            loadProductInfo();
         }
 
         private void deleteProduct()
         {
-            if (dgvDataList.SelectedRows.Count>0)
+            if (dgvDataList.SelectedRows.Count > 0)
             {
                 DataGridViewRow dr = dgvDataList.SelectedRows[0];
                 Product pro = null;
                 foreach (Product p in Entity.Products)
                 {
-                    if (p.productid == (int)dr.Cells[0].Value)
+                    if (p.productid == (Int32)dr.Cells[0].Value)
                     {
                         pro = p;
                         break;
                     }
                 }
-                Entity.Products.Remove(pro);
+                try
+                {
+                    Entity.Products.Remove(pro);
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("can not delete");
+                }
                 Entity.SaveChanges();
             }
         }
