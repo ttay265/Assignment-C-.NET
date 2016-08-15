@@ -78,11 +78,11 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbShipCountry = new System.Windows.Forms.ComboBox();
+            this.cbShipCity = new System.Windows.Forms.ComboBox();
             this.cbEmployeeID = new TSQLManagement.TComboBox();
             this.cbCustomerID = new TSQLManagement.TComboBox();
             this.cbShipperID = new TSQLManagement.TComboBox();
-            this.cbShipCity = new System.Windows.Forms.ComboBox();
-            this.cbShipCountry = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDataList)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -351,7 +351,7 @@
             this.ordersToolStripMenuItem1,
             this.orderToolStripMenuItem1});
             this.ordersToolStripMenuItem.Name = "ordersToolStripMenuItem";
-            this.ordersToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.ordersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.ordersToolStripMenuItem.Text = "Orders";
             // 
             // ordersToolStripMenuItem1
@@ -369,31 +369,32 @@
             // orderDetailToolStripMenuItem
             // 
             this.orderDetailToolStripMenuItem.Name = "orderDetailToolStripMenuItem";
-            this.orderDetailToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.orderDetailToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.orderDetailToolStripMenuItem.Text = "Order Detail";
             // 
             // employeesToolStripMenuItem
             // 
             this.employeesToolStripMenuItem.Name = "employeesToolStripMenuItem";
-            this.employeesToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.employeesToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.employeesToolStripMenuItem.Text = "Employees";
+            this.employeesToolStripMenuItem.Click += new System.EventHandler(this.employeesToolStripMenuItem_Click);
             // 
             // customersToolStripMenuItem
             // 
             this.customersToolStripMenuItem.Name = "customersToolStripMenuItem";
-            this.customersToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.customersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.customersToolStripMenuItem.Text = "Customers";
             // 
             // suppliersToolStripMenuItem
             // 
             this.suppliersToolStripMenuItem.Name = "suppliersToolStripMenuItem";
-            this.suppliersToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.suppliersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.suppliersToolStripMenuItem.Text = "Suppliers";
             // 
             // shippersToolStripMenuItem
             // 
             this.shippersToolStripMenuItem.Name = "shippersToolStripMenuItem";
-            this.shippersToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.shippersToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.shippersToolStripMenuItem.Text = "Shippers";
             // 
             // customerToolStripMenuItem
@@ -553,6 +554,23 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Shipping Detail";
             // 
+            // cbShipCountry
+            // 
+            this.cbShipCountry.FormattingEnabled = true;
+            this.cbShipCountry.Location = new System.Drawing.Point(547, 15);
+            this.cbShipCountry.Name = "cbShipCountry";
+            this.cbShipCountry.Size = new System.Drawing.Size(106, 21);
+            this.cbShipCountry.TabIndex = 40;
+            this.cbShipCountry.TextChanged += new System.EventHandler(this.cbShipCountry_TextChanged);
+            // 
+            // cbShipCity
+            // 
+            this.cbShipCity.FormattingEnabled = true;
+            this.cbShipCity.Location = new System.Drawing.Point(547, 94);
+            this.cbShipCity.Name = "cbShipCity";
+            this.cbShipCity.Size = new System.Drawing.Size(106, 21);
+            this.cbShipCity.TabIndex = 39;
+            // 
             // cbEmployeeID
             // 
             this.cbEmployeeID.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
@@ -607,23 +625,6 @@
             this.cbShipperID.Sorted = true;
             this.cbShipperID.TabIndex = 16;
             this.cbShipperID.Tag = "Customer ID";
-            // 
-            // cbShipCity
-            // 
-            this.cbShipCity.FormattingEnabled = true;
-            this.cbShipCity.Location = new System.Drawing.Point(547, 94);
-            this.cbShipCity.Name = "cbShipCity";
-            this.cbShipCity.Size = new System.Drawing.Size(106, 21);
-            this.cbShipCity.TabIndex = 39;
-            // 
-            // cbShipCountry
-            // 
-            this.cbShipCountry.FormattingEnabled = true;
-            this.cbShipCountry.Location = new System.Drawing.Point(547, 15);
-            this.cbShipCountry.Name = "cbShipCountry";
-            this.cbShipCountry.Size = new System.Drawing.Size(106, 21);
-            this.cbShipCountry.TabIndex = 40;
-            this.cbShipCountry.TextChanged += new System.EventHandler(this.cbShipCountry_TextChanged);
             // 
             // OrderForm
             // 

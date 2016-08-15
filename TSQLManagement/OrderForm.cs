@@ -264,5 +264,11 @@ namespace TSQLManagement
             cbShipCity.AutoCompleteSource = AutoCompleteSource.CustomSource;
             cbShipCity.AutoCompleteCustomSource = CityList;
         }
+
+        private void employeesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmployeeForm EmployeeForm = new EmployeeForm();
+            EmployeeForm.Show();
+        }
     }
 }
