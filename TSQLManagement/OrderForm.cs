@@ -235,6 +235,7 @@ namespace TSQLManagement
         {
             if (dtpShippedDate.Checked)
             {
+
                 CurrentOrder.shippeddate = dtpShippedDate.Value;
             }
         }
@@ -252,7 +253,7 @@ namespace TSQLManagement
             cbShipCity.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             AutoCompleteStringCollection CityList = new AutoCompleteStringCollection();
             var ShipCityFilterByCountry = from Order in entities.Orders
-                                          where Order.shipcountry == cbShipCountry.Text
+                                          where Order.  shipcountry == cbShipCountry.Text
                                           select Order.shipcity;
             ShipCityFilterByCountry = ShipCityFilterByCountry.Distinct();
             cbShipCity.DataSource = ShipCityFilterByCountry.ToList();
