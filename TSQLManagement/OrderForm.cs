@@ -19,6 +19,21 @@ namespace TSQLManagement
         public OrderForm()
         {
             InitializeComponent();
+            CurrentOrder.orderdate = dtpOrderDate.Value;
+            CurrentOrder.requireddate = dtpRequiredDate.Value;
+
+            var ShipCountries = from Order in entities.Orders
+                              select Order.shipcountry;
+            ShipCountries = ShipCountries.Distinct();
+            cbShipCountry.DataSource = ShipCountries.ToList();
+           AutoCompleteStringCollection ShipCountryList = new AutoCompleteStringCollection();
+            foreach (var country in ShipCountries)
+            {
+                ShipCountryList.Add(country);
+            }
+            cbShipCountry.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cbShipCountry.AutoCompleteCustomSource = ShipCountryList;
+            cbShipCountry.AutoCompleteSource = AutoCompleteSource.CustomSource;
             var CustomerIDs = from Customer in entities.Customers
                               select Customer.custid;
             List<int> CustomerIDList = new List<int>();
@@ -93,7 +108,7 @@ namespace TSQLManagement
 
         private void txtShipName_TextChanged(object sender, EventArgs e)
         {
-
+            CurrentOrder.shipname = txtShipName.Text;
         }
 
         private void label9_Click(object sender, EventArgs e)
@@ -156,10 +171,27 @@ namespace TSQLManagement
 
         bool ValidateOrder()
         {
-            foreach (Control control in this.Controls)
+            foreach (Control control in groupBox1.Controls)
             {
                 if (control.ForeColor == Color.Red || string.IsNullOrEmpty(control.Text))
                 {
+                    MessageBox.Show(dtpShippedDate.Text);
+                    return false;
+                }
+            }
+            foreach (Control control in groupBox2.Controls)
+            {
+                if (control.ForeColor == Color.Red || string.IsNullOrEmpty(control.Text))
+                {
+                    MessageBox.Show(dtpShippedDate.Text);
+                    return false;
+                }
+            }
+            foreach (Control control in groupBox3.Controls)
+            {
+                if (control.ForeColor == Color.Red || string.IsNullOrEmpty(control.Text))
+                {
+                    MessageBox.Show(dtpShippedDate.Text);
                     return false;
                 }
             }
@@ -169,7 +201,6 @@ namespace TSQLManagement
         private void cbCustomerID_TextChanged(object sender, EventArgs e)
         {
             int CustomerID;
-            MessageBox.Show("a");
             if (int.TryParse(cbCustomerID.Text, out CustomerID))
             {
                 CurrentOrder.custid = CustomerID;
@@ -183,6 +214,54 @@ namespace TSQLManagement
             {
                 CurrentOrder.empid = EmployeeID;
             }
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            ValidateOrder();
+        }
+
+        private void dtpOrderDate_ValueChanged(object sender, EventArgs e)
+        {
+            CurrentOrder.orderdate = dtpOrderDate.Value;
+        }
+
+        private void dtpRequiredDate_ValueChanged(object sender, EventArgs e)
+        {
+            CurrentOrder.requireddate = dtpRequiredDate.Value;
+        }
+
+        private void dtpShippedDate_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpShippedDate.Checked)
+            {
+                CurrentOrder.shippeddate = dtpShippedDate.Value;
+            }
+        }
+
+        private void textBox10_TextChanged(object sender, EventArgs e)
+        {
+            CurrentOrder.shipaddress = txtShipAddress.Text;
+        }
+
+       
+
+        private void cbShipCountry_TextChanged(object sender, EventArgs e)
+        {
+            CurrentOrder.shipcountry = cbShipCountry.Text;
+            cbShipCity.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            AutoCompleteStringCollection CityList = new AutoCompleteStringCollection();
+            var ShipCityFilterByCountry = from Order in entities.Orders
+                                          where Order.shipcountry == cbShipCountry.Text
+                                          select Order.shipcity;
+            ShipCityFilterByCountry = ShipCityFilterByCountry.Distinct();
+            cbShipCity.DataSource = ShipCityFilterByCountry.ToList();
+            foreach (var city in ShipCityFilterByCountry)
+            {
+                CityList.Add(city);
+            }
+            cbShipCity.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            cbShipCity.AutoCompleteCustomSource = CityList;
         }
     }
 }
