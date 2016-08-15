@@ -362,9 +362,9 @@
             this.flowLayoutPanel1.Controls.Add(this.btnAdd);
             this.flowLayoutPanel1.Controls.Add(this.btnUpdate);
             this.flowLayoutPanel1.Controls.Add(this.btnDelete);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(530, 179);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(520, 208);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(163, 61);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(329, 32);
             this.flowLayoutPanel1.TabIndex = 6;
             // 
             // btnNew
@@ -387,7 +387,7 @@
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(3, 32);
+            this.btnUpdate.Location = new System.Drawing.Point(165, 3);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 3;
@@ -396,7 +396,7 @@
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(84, 32);
+            this.btnDelete.Location = new System.Drawing.Point(246, 3);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 5;
@@ -603,6 +603,7 @@
             this.cbEmployeeID.Sorted = true;
             this.cbEmployeeID.TabIndex = 12;
             this.cbEmployeeID.Tag = "Customer ID";
+            this.cbEmployeeID.TextChanged += new System.EventHandler(this.cbEmployeeID_TextChanged);
             // 
             // cbCustomerID
             // 

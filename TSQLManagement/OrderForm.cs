@@ -169,11 +169,20 @@ namespace TSQLManagement
         private void cbCustomerID_TextChanged(object sender, EventArgs e)
         {
             int CustomerID;
+            MessageBox.Show("a");
             if (int.TryParse(cbCustomerID.Text, out CustomerID))
             {
                 CurrentOrder.custid = CustomerID;
             }
         }
 
+        private void cbEmployeeID_TextChanged(object sender, EventArgs e)
+        {
+            int EmployeeID;
+            if (int.TryParse(cbCustomerID.Text, out EmployeeID))
+            {
+                CurrentOrder.empid = EmployeeID;
+            }
+        }
     }
 }
