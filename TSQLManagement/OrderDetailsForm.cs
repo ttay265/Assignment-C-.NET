@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,6 +13,7 @@ namespace TSQLManagement
 {
     public partial class OrderDetailsForm : Form
     {
+   //     decimal unitPrice  finish unitprice
         int InitOderId = -1;
         OrderDetail CurrentDetail = new OrderDetail();
         TSQLFundamentals2008Entities Entity = new TSQLFundamentals2008Entities();
@@ -42,7 +44,7 @@ namespace TSQLManagement
 
         private void cbProductId_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            cbProductId_TextChanged(sender, e);
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
@@ -50,7 +52,7 @@ namespace TSQLManagement
 
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnSave_Click(object sender, EventArgs e)
         {
             if (validateInput() == false)
             {
@@ -60,7 +62,7 @@ namespace TSQLManagement
             try
             {
                 addOrder();
-                commend.Text = "add successfully !!!!";
+                commend.Text = "Saved Successfully!";
                 LoadOrderDetail();
             }
             catch (Exception)
@@ -70,13 +72,8 @@ namespace TSQLManagement
         }
         private void addOrder()
         {
-            OrderDetail od = new OrderDetail();
-            od.orderid = Int32.Parse(cbOrderId.Text);
-            od.productid = Int32.Parse(cbProductId.Text);
-            od.qty = Int16.Parse(txtQuantity.Text);
-            od.discount = Decimal.Parse(txtDiscount.Text);
 
-            Entity.OrderDetails.Add(od);
+            Entity.OrderDetails.Add(CurrentDetail);
             Entity.SaveChanges();
         }
         void LoadCombobox()
@@ -95,6 +92,7 @@ namespace TSQLManagement
 
         private void LoadOrderDetail()
         {
+            dgvDataList.RowHeadersVisible = false;
             List<OrderDetail> OrderDetailList = new List<OrderDetail>();
             int OrderID;
             if (int.TryParse(cbOrderId.Text, out OrderID))
@@ -113,15 +111,59 @@ namespace TSQLManagement
                 cbProductId.DataSource = productIDs.ToList();
                 for (int i = 0; i < dgvDataList.Columns.Count; i++)
                 {
-                    if (new String[] { "Product", "Order" }
-                        .Contains(dgvDataList.Columns[i].HeaderText))
+                    switch (i)
                     {
-                        dgvDataList.Columns[i].Visible = false;
+                        case 0:
+                            dgvDataList.Columns[i].HeaderText = "Order ID";
+                            break;
+
+                        case 1:
+                            dgvDataList.Columns[i].HeaderText = "Product ID";
+                            break;
+                        case 2:
+                            dgvDataList.Columns[i].HeaderText = "Unit Price";
+                            break;
+                        case 3:
+                            dgvDataList.Columns[i].HeaderText = "Quantity";
+                            break;
+                        case 4:
+                            dgvDataList.Columns[i].HeaderText = "Discount";
+                            break;
+                        default:
+                            dgvDataList.Columns[i].Visible = false;
+                            break;
                     }
                 }
             }
+            var BriefProducts = from Product in Entity.Products
+                                where Product.productid == -1 && Product.discontinued == false
+                                select Product;
+            dgvProducts.DataSource = BriefProducts.ToList();
+            dgvProducts.AutoSize = true;
+            dgvProducts.MaximumSize = new Size(383, 101);
 
+            for (int i = 0; i < dgvProducts.Columns.Count; i++)
+            {
+                switch (i)
+                {
+                    case 0:
+                        dgvProducts.Columns[i].Width = 95;
+                        dgvProducts.Columns[i].HeaderText = "Product ID";
+                        break;
 
+                    case 1:
+                        dgvProducts.Columns[i].Width = 195;
+                        dgvProducts.Columns[i].HeaderText = "Product Name";
+                        break;
+                    case 4:
+                        dgvProducts.Columns[i].Width = 95;
+                        dgvProducts.Columns[i].HeaderText = "Unit Price";
+                        break;
+                    default:
+                        dgvProducts.Columns[i].Visible = false;
+                        break;
+                }
+            }
         }
 
         private bool validateInput()
@@ -181,9 +223,9 @@ namespace TSQLManagement
 
         private void btnNew_Click(object sender, EventArgs e)
         {
+            btnSave.Text = "Add";
             txtQuantity.Text = "";
             txtDiscount.Text = "";
-            cbOrderId.Text = "";
             cbProductId.Text = "";
 
         }
@@ -275,16 +317,7 @@ namespace TSQLManagement
 
         private void dgvDataList_SelectionChanged(object sender, EventArgs e)
         {
-            if (dgvDataList.SelectedRows.Count > 0)
-            {
-                DataGridViewRow dr = dgvDataList.SelectedRows[0];
-                cbOrderId.Text = dr.Cells[0].Value.ToString();
-                cbProductId.Text = dr.Cells[1].Value.ToString();
-                txtQuantity.Text = dr.Cells[3].Value.ToString();
-                txtDiscount.Text = dr.Cells[4].Value.ToString();
 
-
-            }
         }
 
         private void cbOrderId_TextChanged(object sender, EventArgs e)
@@ -308,35 +341,154 @@ namespace TSQLManagement
 
         private void cbProductId_TextChanged(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(cbProductId.Text))
+            if (cbProductId.Focused)
+            {
+
+                if (string.IsNullOrEmpty(cbProductId.Text))
+                {
+                    var BriefProducts = from Product in Entity.Products
+                                        where Product.discontinued == false
+                                        select Product;
+                    dgvProducts.DataSource = BriefProducts.ToList();
+
+                }
+                else
+                {
+                    int ProductID;
+                    if (int.TryParse(cbProductId.Text, out ProductID))
+                    {
+                        var BriefProducts = from Product in Entity.Products
+                                            where Product.productid == ProductID && Product.discontinued == false
+                                            select Product;
+                        dgvProducts.DataSource = BriefProducts.ToList();
+                        dgvProducts.AutoSize = true;
+                        dgvProducts.MaximumSize = new Size(383, 101);
+                    }
+                    for (int i = 0; i < dgvProducts.Columns.Count; i++)
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                dgvProducts.Columns[i].Width = 95;
+                                dgvProducts.Columns[i].HeaderText = "Product ID";
+                                break;
+
+                            case 1:
+                                dgvProducts.Columns[i].Width = 195;
+                                dgvProducts.Columns[i].HeaderText = "Product Name";
+                                break;
+                            case 4:
+                                dgvProducts.Columns[i].Width = 95;
+                                dgvProducts.Columns[i].HeaderText = "Unit Price";
+                                break;
+                            default:
+                                dgvProducts.Columns[i].Visible = false;
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void commend_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void txtQuickProduct_TextChanged(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQuickProduct.Text))
             {
                 var BriefProducts = from Product in Entity.Products
+                                    where Product.productname == txtQuickProduct.Text && Product.discontinued == false
                                     select Product;
                 dgvProducts.DataSource = BriefProducts.ToList();
 
             }
             else
             {
-                int ProductID;
-                if (int.TryParse(cbProductId.Text, out ProductID))
+                var BriefProducts = from Product in Entity.Products
+                                    where Product.productname.Contains(txtQuickProduct.Text) && Product.discontinued == false
+                                    select Product;
+                dgvProducts.DataSource = BriefProducts.ToList();
+                dgvProducts.AutoSize = true;
+                dgvProducts.MaximumSize = new Size(383, 101);
+                for (int i = 0; i < dgvProducts.Columns.Count; i++)
                 {
-                    var BriefProducts = from Product in Entity.Products
-                                        where Product.productid == ProductID
-                                        select Product;
-                    dgvProducts.DataSource = BriefProducts.ToList();
-                        for (int i = 0; i < dgvProducts.Columns.Count; i++)
-                {
-                    if (new String[] { "Product ID", "Order" }
-                        .Contains(dgvDataList.Columns[i].HeaderText))
+                    switch (i)
                     {
-                        dgvDataList.Columns[i].Visible = false;
+                        case 0:
+                            dgvProducts.Columns[i].HeaderText = "Product ID";
+                            break;
+
+                        case 1:
+                            dgvProducts.Columns[i].HeaderText = "Product Name";
+                            break;
+                        case 4:
+                            dgvProducts.Columns[i].HeaderText = "Unit Price";
+                            break;
+                        default:
+                            dgvProducts.Columns[i].Visible = false;
+                            break;
                     }
                 }
-                }
             }
+        }
+
+        private void dgvProducts_SelectionChanged(object sender, EventArgs e)
+        {
 
         }
 
+        private void dgvDataList_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnSave.Text = "Update";
+            if (dgvDataList.SelectedRows.Count > 0)
+            {
+                DataGridViewRow dr = dgvDataList.SelectedRows[0];
+                cbOrderId.Text = dr.Cells[0].Value.ToString();
+                cbProductId.Text = dr.Cells[1].Value.ToString();
+                txtQuantity.Text = dr.Cells[3].Value.ToString();
+                txtDiscount.Text = dr.Cells[4].Value.ToString();
+            }
+        }
 
+        private void txtQuantity_TextChanged(object sender, EventArgs e)
+        {
+            short Quantity;
+            if (short.TryParse(txtQuantity.Text, out Quantity))
+            {
+                txtQuantity.ForeColor = Color.Black;
+                CurrentDetail.qty = Quantity;
+
+            } else
+            {
+                txtQuantity.ForeColor = Color.Red;
+            }
+        }
+
+        private void txtDiscount_TextChanged(object sender, EventArgs e)
+        {
+            decimal Discount;
+            if (decimal.TryParse(txtDiscount.Text, out Discount))
+            {
+                txtDiscount.ForeColor = Color.Black;
+                CurrentDetail.discount = Discount;
+            }
+            else
+            {
+                txtDiscount.ForeColor = Color.Red;
+            }
+        }
     }
 }
