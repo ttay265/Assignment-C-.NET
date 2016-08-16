@@ -13,12 +13,13 @@ namespace TSQLManagement
 {
     public partial class OrderDetailsForm : Form
     {
-   //     decimal unitPrice  finish unitprice
+        decimal UnitPrice = -1;
         int InitOderId = -1;
         OrderDetail CurrentDetail = new OrderDetail();
         TSQLFundamentals2008Entities Entity = new TSQLFundamentals2008Entities();
         public OrderDetailsForm()
         {
+
             InitializeComponent();
             LoadCombobox();
             LoadOrderDetail();
@@ -30,6 +31,7 @@ namespace TSQLManagement
         {
             InitOderId = OrderID;
             InitializeComponent();
+            CurrentDetail.orderid = OrderID;
             LoadOrderDetail();
             dgvDataList.AutoSize = true;
             dgvDataList.MaximumSize = new Size(660, 255);
@@ -58,23 +60,47 @@ namespace TSQLManagement
             {
                 return;
             }
-
-            try
+            if (btnSave.Text == "Add")
             {
                 addOrder();
                 commend.Text = "Saved Successfully!";
                 LoadOrderDetail();
             }
-            catch (Exception)
+            else
             {
-
+                updateOrderDetails();
             }
+            LoadOrderDetail();
         }
         private void addOrder()
         {
-
-            Entity.OrderDetails.Add(CurrentDetail);
-            Entity.SaveChanges();
+            DataGridViewRow dr = dgvDataList.SelectedRows[0];
+            OrderDetail OrderDetail = new OrderDetail();
+            foreach (OrderDetail o in Entity.OrderDetails)
+            {
+                if (o.productid == (int)dr.Cells[1].Value && o.orderid == (int)dr.Cells[0].Value)
+                {
+                    OrderDetail = o;
+                    break;
+                }
+            }
+            if (OrderDetail != null)
+            {
+                OrderDetail.orderid = Int32.Parse(cbOrderId.Text);
+                OrderDetail.productid = Int32.Parse(cbProductId.Text);
+                OrderDetail.qty += Int16.Parse(txtQuantity.Text);
+                MessageBox.Show(UnitPrice.ToString());
+                OrderDetail.unitprice = UnitPrice;
+                OrderDetail.discount = Decimal.Parse(txtDiscount.Text) / 100;
+                Entity.SaveChanges();
+            }
+            else
+            {
+                CurrentDetail.orderid = (int)cbOrderId.SelectedValue;
+                CurrentDetail.productid = (int)cbProductId.SelectedValue;
+                Entity.OrderDetails.Add(CurrentDetail);
+                Entity.SaveChanges();
+            }
         }
         void LoadCombobox()
         {
@@ -113,10 +139,6 @@ namespace TSQLManagement
                 {
                     switch (i)
                     {
-                        case 0:
-                            dgvDataList.Columns[i].HeaderText = "Order ID";
-                            break;
-
                         case 1:
                             dgvDataList.Columns[i].HeaderText = "Product ID";
                             break;
@@ -168,66 +190,47 @@ namespace TSQLManagement
 
         private bool validateInput()
         {
-            if (cbOrderId.Text == "")
+            if (cbOrderId.Text == "" || cbOrderId.ForeColor == Color.Red)
             {
-                error.Text = "Order id not null !!!";
-                return true;
+                lblError.Text = "Order Invalid!!!";
+                return false;
             }
 
-            if (cbProductId.Text == "")
+            if (cbProductId.Text == "" || cbProductId.ForeColor == Color.Red)
             {
-                error.Text = "Product id not null !!!";
-                return true;
+                lblError.Text = "Product Invalid!!!";
+                return false;
             }
-
-            try
+            if (txtQuantity.ForeColor == Color.Red)
             {
+                lblError.Text = "Quantity Invalid!!!";
+                return false;
             }
-            catch (Exception)
+            if (txtDiscount.ForeColor == Color.Red)
             {
-                error.Text = "unitprice is number !!!!";
-                return true;
+                lblError.Text = "Quantity Invalid!!!";
+                return false;
             }
-
-            try
-            {
-                Int16 quatity = Int16.Parse(txtQuantity.Text);
-
-            }
-            catch (Exception)
-            {
-                error.Text = "quantity is number !!! ";
-                txtQuantity.Select();
-                return true;
-            }
-
-            try
-            {
-                Decimal discount = Decimal.Parse(txtDiscount.Text);
-            }
-            catch (Exception)
-            {
-                error.Text = "discount is number !!!!";
-                txtDiscount.Select();
-                return true;
-            }
-
-            error.Text = "";
             return true;
         }
 
         private void cbOrderId_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            int OrderID;
+            if (int.TryParse(cbOrderId.Text, out OrderID))
+            {
+                CurrentDetail.orderid = OrderID;
+            }
         }
 
         private void btnNew_Click(object sender, EventArgs e)
         {
             btnSave.Text = "Add";
-            txtQuantity.Text = "";
-            txtDiscount.Text = "";
-            cbProductId.Text = "";
-
+            txtQuantity.Text = "1";
+            txtDiscount.Text = "00";
+            cbProductId.SelectedIndex = 1;
+            txtQuickProduct.Enabled = true;
+            cbProductId.Enabled = true;
         }
 
         private void OrderDetailsForm_Load(object sender, EventArgs e)
@@ -237,11 +240,6 @@ namespace TSQLManagement
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (validateInput() == false)
-            {
-                return;
-            }
-
             try
             {
                 updateOrderDetails();
@@ -255,27 +253,23 @@ namespace TSQLManagement
 
         private void updateOrderDetails()
         {
-
             DataGridViewRow dr = dgvDataList.SelectedRows[0];
-            OrderDetail od = null;
+            OrderDetail OrderDetail = new OrderDetail();
             foreach (OrderDetail o in Entity.OrderDetails)
             {
-                if (o.productid == (int)dr.Cells[0].Value)
+                if (o.productid == (int)dr.Cells[1].Value && o.orderid == (int)dr.Cells[0].Value)
                 {
-                    od = o;
+                    OrderDetail = o;
                     break;
-
                 }
             }
-            if (od != null)
+            if (OrderDetail != null)
             {
-                od.orderid = Int32.Parse(cbOrderId.Text);
-                od.productid = Int32.Parse(cbProductId.Text);
-                od.qty = Int16.Parse(txtQuantity.Text);
-                od.discount = Decimal.Parse(txtDiscount.Text);
-
+                OrderDetail.orderid = Int32.Parse(cbOrderId.Text);
+                OrderDetail.productid = Int32.Parse(cbProductId.Text);
+                OrderDetail.qty = Int16.Parse(txtQuantity.Text);
+                OrderDetail.discount = Decimal.Parse(txtDiscount.Text) / 100;
                 Entity.SaveChanges();
-
             }
         }
 
@@ -343,13 +337,8 @@ namespace TSQLManagement
         {
             if (cbProductId.Focused)
             {
-
                 if (string.IsNullOrEmpty(cbProductId.Text))
                 {
-                    var BriefProducts = from Product in Entity.Products
-                                        where Product.discontinued == false
-                                        select Product;
-                    dgvProducts.DataSource = BriefProducts.ToList();
 
                 }
                 else
@@ -364,29 +353,30 @@ namespace TSQLManagement
                         dgvProducts.AutoSize = true;
                         dgvProducts.MaximumSize = new Size(383, 101);
                     }
-                    for (int i = 0; i < dgvProducts.Columns.Count; i++)
+                }
+                for (int i = 0; i < dgvProducts.Columns.Count; i++)
+                {
+                    switch (i)
                     {
-                        switch (i)
-                        {
-                            case 0:
-                                dgvProducts.Columns[i].Width = 95;
-                                dgvProducts.Columns[i].HeaderText = "Product ID";
-                                break;
+                        case 0:
+                            dgvProducts.Columns[i].Width = 95;
+                            dgvProducts.Columns[i].HeaderText = "Product ID";
+                            break;
 
-                            case 1:
-                                dgvProducts.Columns[i].Width = 195;
-                                dgvProducts.Columns[i].HeaderText = "Product Name";
-                                break;
-                            case 4:
-                                dgvProducts.Columns[i].Width = 95;
-                                dgvProducts.Columns[i].HeaderText = "Unit Price";
-                                break;
-                            default:
-                                dgvProducts.Columns[i].Visible = false;
-                                break;
-                        }
+                        case 1:
+                            dgvProducts.Columns[i].Width = 195;
+                            dgvProducts.Columns[i].HeaderText = "Product Name";
+                            break;
+                        case 4:
+                            dgvProducts.Columns[i].Width = 95;
+                            dgvProducts.Columns[i].HeaderText = "Unit Price";
+                            break;
+                        default:
+                            dgvProducts.Columns[i].Visible = false;
+                            break;
                     }
                 }
+
             }
         }
 
@@ -447,11 +437,27 @@ namespace TSQLManagement
 
         private void dgvProducts_SelectionChanged(object sender, EventArgs e)
         {
+            int SelectedRowsCount = dgvProducts.SelectedRows.Count;
+            if (SelectedRowsCount > 0)
+            {
+                if (decimal.TryParse(dgvProducts.SelectedRows[0].Cells[4].Value.ToString(), out UnitPrice))
+                {
+                    CurrentDetail.unitprice = UnitPrice;
+                    CurrentDetail.productid = (int)dgvProducts.SelectedRows[0].Cells[0].Value;
+                    cbProductId.Text = dgvProducts.SelectedRows[0].Cells[0].Value.ToString();
 
+                }
+            }
+
+
+
+            //
         }
 
         private void dgvDataList_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            txtQuickProduct.Enabled = false;
+            cbProductId.Enabled = false;
             btnSave.Text = "Update";
             if (dgvDataList.SelectedRows.Count > 0)
             {
@@ -459,7 +465,8 @@ namespace TSQLManagement
                 cbOrderId.Text = dr.Cells[0].Value.ToString();
                 cbProductId.Text = dr.Cells[1].Value.ToString();
                 txtQuantity.Text = dr.Cells[3].Value.ToString();
-                txtDiscount.Text = dr.Cells[4].Value.ToString();
+                decimal a = ((decimal)dr.Cells[4].Value) * 100;
+                txtDiscount.Text = ((int)a).ToString();
             }
         }
 
@@ -471,7 +478,8 @@ namespace TSQLManagement
                 txtQuantity.ForeColor = Color.Black;
                 CurrentDetail.qty = Quantity;
 
-            } else
+            }
+            else
             {
                 txtQuantity.ForeColor = Color.Red;
             }
@@ -489,6 +497,58 @@ namespace TSQLManagement
             {
                 txtDiscount.ForeColor = Color.Red;
             }
+        }
+
+        private void dgvProducts_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            dgvProducts_SelectionChanged(sender, e);
+            short quantity;
+            if (short.TryParse(txtQuantity.Text, out quantity))
+            {
+                quantity++;
+                txtQuantity.Text = quantity.ToString();
+                CurrentDetail.qty = quantity;
+            }
+            else
+            {
+                txtQuantity.Text = "1";
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            short quantity;
+            if (short.TryParse(txtQuantity.Text, out quantity))
+            {
+                quantity--;
+                txtQuantity.Text = quantity.ToString();
+                CurrentDetail.qty = quantity;
+            }
+            else
+            {
+                txtQuantity.Text = "1";
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            short quantity;
+            if (short.TryParse(txtQuantity.Text, out quantity))
+            {
+                quantity++;
+                txtQuantity.Text = quantity.ToString();
+                CurrentDetail.qty = quantity;
+            }
+            else
+            {
+                txtQuantity.Text = "1";
+            }
+        }
+
+        private void dgvProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
