@@ -1,0 +1,19 @@
+#label {
+	text-align: right;
+	max-width: 100px;
+//	font-family: san-serif, Arial;
+	font-size: 222px;
+	// line-height: 16px;
+}
+.dropmenu {
+	
+}
+.nava:hover ul li {
+	top: 25px;
+	font-size:1000px;
+}
+
+.nava ul li {
+	top: -10225px;
+	font-size:1000px;
+}
