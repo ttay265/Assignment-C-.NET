@@ -13,7 +13,6 @@ namespace TSQLManagement
 {
     public partial class OrderDetailsForm : Form
     {
-        decimal UnitPrice = -1;
         int InitOderId = -1;
         OrderDetail CurrentDetail = new OrderDetail();
         TSQLFundamentals2008Entities Entity = new TSQLFundamentals2008Entities();
@@ -23,6 +22,8 @@ namespace TSQLManagement
             InitializeComponent();
             LoadCombobox();
             LoadOrderDetail();
+            MessageBox.Show(cbProductId.Text);
+            CurrentDetail.orderid = int.Parse(cbOrderId.Text);
             dgvDataList.AutoSize = true;
             dgvDataList.MaximumSize = new Size(660, 255);
             this.AutoSize = true;
@@ -74,33 +75,23 @@ namespace TSQLManagement
         }
         private void addOrder()
         {
-            DataGridViewRow dr = dgvDataList.SelectedRows[0];
-            OrderDetail OrderDetail = new OrderDetail();
-            foreach (OrderDetail o in Entity.OrderDetails)
+            foreach (OrderDetail detail in ((List<OrderDetail>)dgvDataList.DataSource))
             {
-                if (o.productid == (int)dr.Cells[1].Value && o.orderid == (int)dr.Cells[0].Value)
+                if (detail.productid == CurrentDetail.Product.productid)
                 {
-                    OrderDetail = o;
-                    break;
+                    detail.qty += short.Parse(txtQuantity.Text);
+                    Entity.SaveChanges();
+                    return;
                 }
             }
-            if (OrderDetail != null)
-            {
-                OrderDetail.orderid = Int32.Parse(cbOrderId.Text);
-                OrderDetail.productid = Int32.Parse(cbProductId.Text);
-                OrderDetail.qty += Int16.Parse(txtQuantity.Text);
-                MessageBox.Show(UnitPrice.ToString());
-                OrderDetail.unitprice = UnitPrice;
-                OrderDetail.discount = Decimal.Parse(txtDiscount.Text) / 100;
-                Entity.SaveChanges();
-            }
-            else
-            {
-                CurrentDetail.orderid = (int)cbOrderId.SelectedValue;
-                CurrentDetail.productid = (int)cbProductId.SelectedValue;
-                Entity.OrderDetails.Add(CurrentDetail);
-                Entity.SaveChanges();
-            }
+            OrderDetail NewDetail = new OrderDetail();
+            NewDetail.orderid = int.Parse(cbOrderId.Text);
+            NewDetail.productid = CurrentDetail.Product.productid;
+            NewDetail.unitprice = CurrentDetail.Product.unitprice;
+            NewDetail.qty = short.Parse(txtQuantity.Text);
+            NewDetail.discount = Decimal.Parse(txtDiscount.Text) / 100;
+            Entity.OrderDetails.Add(NewDetail);
+            Entity.SaveChanges();
         }
         void LoadCombobox()
         {
@@ -195,6 +186,11 @@ namespace TSQLManagement
                 lblError.Text = "Order Invalid!!!";
                 return false;
             }
+            if (CurrentDetail.Product == null || string.IsNullOrEmpty(CurrentDetail.Product.productname))
+            {
+                lblError.Text = "Product Invalid!!!";
+                return false;
+            }
 
             if (cbProductId.Text == "" || cbProductId.ForeColor == Color.Red)
             {
@@ -211,6 +207,7 @@ namespace TSQLManagement
                 lblError.Text = "Quantity Invalid!!!";
                 return false;
             }
+            lblError.Text = "";
             return true;
         }
 
@@ -285,27 +282,24 @@ namespace TSQLManagement
             if (dgvDataList.SelectedRows.Count > 0)
             {
                 DataGridViewRow dr = dgvDataList.SelectedRows[0];
-                Product pro = null;
-                foreach (Product p in Entity.Products)
+                foreach (OrderDetail de in Entity.OrderDetails)
                 {
-                    if (p.productid == (Int32)dr.Cells[0].Value)
+                    if (de.orderid == int.Parse(cbOrderId.Text) && de.productid == (int)dr.Cells[1].Value)
                     {
-                        pro = p;
-                        break;
+                        try
+                        {
+                            Entity.OrderDetails.Remove(de);
+                            Entity.SaveChanges();
+                            commend.Text = "Delete successfully!";
+                            return;
+                        }
+                        catch (Exception)
+                        {
+                            lblError.Text = "Delete Failed!";
+                            return;
+                        }
                     }
                 }
-
-                try
-                {
-                    Entity.Products.Remove(pro);
-                    Entity.SaveChanges();
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("can not delete order");
-
-                }
-
             }
         }
 
@@ -316,12 +310,15 @@ namespace TSQLManagement
 
         private void cbOrderId_TextChanged(object sender, EventArgs e)
         {
-            LoadOrderDetail();
+
             if (!string.IsNullOrEmpty(cbOrderId.Text))
             {
+                LoadOrderDetail();
                 int OrderID;
                 if (int.TryParse(cbOrderId.Text, out OrderID))
                 {
+                    cbOrderId.DropDownStyle = ComboBoxStyle.DropDown;
+                    cbOrderId.ForeColor = Color.Black;
                     if (((List<int>)cbOrderId.DataSource).Contains(OrderID))
                     {
                         cbOrderId.ForeColor = Color.Black;
@@ -329,8 +326,17 @@ namespace TSQLManagement
                         return;
                     }
                 }
+                else
+                {
+                    cbOrderId.DropDownStyle = ComboBoxStyle.Simple;
+                    cbOrderId.ForeColor = Color.Red;
+                }
             }
-            cbOrderId.ForeColor = Color.Red;
+            else
+            {
+                cbOrderId.DropDownStyle = ComboBoxStyle.DropDown;
+                cbOrderId.ForeColor = Color.Black;
+            }
         }
 
         private void cbProductId_TextChanged(object sender, EventArgs e)
@@ -339,19 +345,38 @@ namespace TSQLManagement
             {
                 if (string.IsNullOrEmpty(cbProductId.Text))
                 {
-
+                    cbProductId.DropDownStyle = ComboBoxStyle.DropDown;
+                    cbProductId.ForeColor = Color.Black;
                 }
                 else
                 {
                     int ProductID;
                     if (int.TryParse(cbProductId.Text, out ProductID))
                     {
+                        cbProductId.DropDownStyle = ComboBoxStyle.DropDown;
+                        cbProductId.ForeColor = Color.Black;
                         var BriefProducts = from Product in Entity.Products
                                             where Product.productid == ProductID && Product.discontinued == false
                                             select Product;
-                        dgvProducts.DataSource = BriefProducts.ToList();
-                        dgvProducts.AutoSize = true;
-                        dgvProducts.MaximumSize = new Size(383, 101);
+                        if (BriefProducts.ToList().Count > 0)
+                        {
+                            dgvProducts.DataSource = BriefProducts.ToList();
+                            dgvProducts.AutoSize = true;
+                            dgvProducts.MaximumSize = new Size(383, 101);
+                            cbProductId.DropDownStyle = ComboBoxStyle.DropDown;
+                            cbProductId.ForeColor = Color.Black;
+                        }
+                        else
+                        {
+                            cbProductId.DropDownStyle = ComboBoxStyle.Simple;
+                            cbProductId.ForeColor = Color.Red;
+                        }
+
+                    }
+                    else
+                    {
+                        cbProductId.DropDownStyle = ComboBoxStyle.Simple;
+                        cbProductId.ForeColor = Color.Red;
                     }
                 }
                 for (int i = 0; i < dgvProducts.Columns.Count; i++)
@@ -437,21 +462,15 @@ namespace TSQLManagement
 
         private void dgvProducts_SelectionChanged(object sender, EventArgs e)
         {
+            txtQuantity.Text = "1";
             int SelectedRowsCount = dgvProducts.SelectedRows.Count;
+            dgvProducts.MultiSelect = false;
             if (SelectedRowsCount > 0)
             {
-                if (decimal.TryParse(dgvProducts.SelectedRows[0].Cells[4].Value.ToString(), out UnitPrice))
-                {
-                    CurrentDetail.unitprice = UnitPrice;
-                    CurrentDetail.productid = (int)dgvProducts.SelectedRows[0].Cells[0].Value;
-                    cbProductId.Text = dgvProducts.SelectedRows[0].Cells[0].Value.ToString();
-
-                }
+                int productid = (int)dgvProducts.SelectedRows[0].Cells[0].Value;
+                CurrentDetail.Product = Entity.Products.Find(productid);
+                cbProductId.Text = productid.ToString();
             }
-
-
-
-            //
         }
 
         private void dgvDataList_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -502,24 +521,12 @@ namespace TSQLManagement
         private void dgvProducts_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             dgvProducts_SelectionChanged(sender, e);
-            short quantity;
-            if (short.TryParse(txtQuantity.Text, out quantity))
-            {
-                quantity++;
-                txtQuantity.Text = quantity.ToString();
-                CurrentDetail.qty = quantity;
-            }
-            else
-            {
-                txtQuantity.Text = "1";
-            }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            short quantity;
-            if (short.TryParse(txtQuantity.Text, out quantity))
+            short quantity = 0;
+            if (short.TryParse(txtQuantity.Text, out quantity) && quantity > 1)
             {
                 quantity--;
                 txtQuantity.Text = quantity.ToString();
@@ -528,6 +535,7 @@ namespace TSQLManagement
             else
             {
                 txtQuantity.Text = "1";
+                CurrentDetail.qty = 1;
             }
         }
 
@@ -543,11 +551,23 @@ namespace TSQLManagement
             else
             {
                 txtQuantity.Text = "1";
+                CurrentDetail.qty = 1;
             }
         }
 
         private void dgvProducts_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void cbOrderId_DropDown(object sender, EventArgs e)
+        {
+            //////cbOrderId.ForeColor = Color.Black;
+        }
+
+        private void cbProductId_DropDown(object sender, EventArgs e)
+        {
+            cbProductId.ForeColor = Color.Black;
 
         }
     }
