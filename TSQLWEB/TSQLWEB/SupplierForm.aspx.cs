@@ -204,31 +204,13 @@ namespace TSQLWEB
             txtCompanyName.Text = r.Cells[2].Text;
             txtContactName.Text = r.Cells[3].Text;
             txtContactTitle.Text = r.Cells[4].Text;
-            txtAddress.Text = r.Cells[5].Text;
+            txtAddress.Text =Server.HtmlDecode( r.Cells[5].Text);
             txtCity.Text = r.Cells[6].Text;
-            if (r.Cells[7].Text != "&nbsp;")
-            {
-                txtRegion.Text = r.Cells[7].Text;
-                txtRegion.Text.Trim();
-            }
-
-            else
-            {
-                txtRegion.Text = "";
-            }
+            txtRegion.Text = Server.HtmlDecode(r.Cells[7].Text);
             txtPostalCode.Text = r.Cells[8].Text;
             cbCountry.Text = r.Cells[9].Text;
             txtPhone.Text = r.Cells[10].Text;
-
-            if (r.Cells[11].Text != "&nbsp;")
-            {
-                txtFax.Text = r.Cells[11].Text;
-            }
-
-            else
-            {
-                txtFax.Text = String.Empty;
-            }
+            txtFax.Text = Server.HtmlDecode(r.Cells[11].Text);
 
         }
 

@@ -8,36 +8,38 @@
         <div class="panel-body">
           <table cellpadding="5px">
 	<tr >
-	<td style="width: 20%; text-align:right"> Company Name:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtCompanyName" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 20%; text-align:right" > Company Name:</td>
+	<td style="width: 70%"><asp:TextBox ID="txtCompanyName" cssClass="form-control" runat="server" Width="206px"/><asp:RequiredFieldValidator runat="server" ControlToValidate="txtCompanyName"
+                    CssClass="text-danger" ErrorMessage="The Company name field is required." /></td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Contact Name:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtContactName" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtContactName" cssClass="form-control" runat="server" Width="206px"/><asp:RequiredFieldValidator runat="server" ControlToValidate="txtContactName"
+                    CssClass="text-danger" ErrorMessage="The Contact name field is required." /></td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Contact Title:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtContactTitle" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtContactTitle" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Address:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtAddress" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtAddress" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">City:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtCity" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtCity" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Region:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtRegion" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtRegion" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Postal Code:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtPostalCode" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtPostalCode" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Country:</td>
-	<td style="width: 70%"><asp:DropDownList ID="cbCountry" runat="server">
+	<td style="width: 70%"><asp:DropDownList ID="cbCountry" cssClass="form-control" runat="server" Width="206px">
         <asp:ListItem Value="-1">Choose a national</asp:ListItem>
         <asp:ListItem>Vietnamese</asp:ListItem>
         <asp:ListItem>Japan</asp:ListItem>
@@ -50,11 +52,11 @@
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Phone:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtPhone" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtPhone" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Fax:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtFax" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtFax" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
 	</tr>
 </table>
 
@@ -64,8 +66,8 @@
 
 
     <br />
-	<asp:Button ID="btnNew" cssClass="btn btn-default"  runat="server" Text="New" OnClick="btnNew_Click" />
-    <asp:Button ID="btnAdd" cssClass="btn btn-success" runat="server" Text="Add" OnClick="btnAdd_Click" />
+	<div class="btn btn-default"> <asp:Button ID="btnNew"  runat="server" Text="New" OnClick="btnNew_Click" /></div>
+    <div class="btn btn-success"> <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" /> </div>
 		
     <script>
    </script>
@@ -77,4 +79,4 @@
 	</asp:GridView>
 
     <br />
-&nbsp;</asp:Content>
+</asp:Content>
