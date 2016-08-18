@@ -11,11 +11,15 @@
           <table cellpadding="5px">
 	<tr >
 	<td style="width: 20%; text-align:right" > Category Name:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtCategory" cssClass="form-control" runat="server" Width="206px" MaxLength="15"/></td>
+	<td style="width: 70%"><asp:TextBox ID="txtCategory" cssClass="form-control" runat="server" Width="206px" MaxLength="15"/>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtCategory" ErrorMessage="Invalid Category Name!" ForeColor="Red"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Description:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtDes" cssClass="form-control" runat="server" Width="206px" Height="180px" MaxLength="200"/></td>
+	<td style="width: 70%"><asp:TextBox ID="txtDes" cssClass="form-control" runat="server" Width="206px" Height="180px" MaxLength="200"/>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtDes" ErrorMessage="Invalid Description!" ForeColor="Red"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 </table>
 
@@ -25,9 +29,11 @@
 
 
     <br />
+    <div style="margin: auto">
 	 <asp:Button ID="btnNew"  cssClass="btn btn-default" runat="server" Text="New" OnClick="btnNew_Click" />
   <asp:Button ID="btnAdd" cssClass="btn btn-success" runat="server" Text="Add" OnClick="btnAdd_Click" />
-		
+	</div>	
+    <br />
     <script>
    </script>
         <asp:Label ID="lblStatus" runat="server"></asp:Label>
@@ -58,6 +64,5 @@
     </asp:GridView>
 
     <br />
-    <p>
-    </p>
+ 
 </asp:Content>

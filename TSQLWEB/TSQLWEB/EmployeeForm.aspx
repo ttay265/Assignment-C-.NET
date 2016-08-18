@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmployeeForm.aspx.cs" Inherits="TSQLWEB.EmployeeForm" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Stylesheets" runat="server">
-    <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+    
     <script>
         newaction();
         function newaction() {
@@ -11,23 +13,7 @@
             }
         }
     </script>
-    <style type="text/css">
-        .button {
-            padding: 15px;
-        }
-        .form_left {
-            width: 50%;
-            padding-left: 30px;
-        }
-         .form_right {
-            float: right;
-            width: 50%;
-            margin-right: 250px;
-        }
-         .popup_icon {
-             display: inline;
-         }
-    </style>
+    
 
 
 </asp:Content>
@@ -62,8 +48,8 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="Input Birthdate" ControlToValidate="txtBirthDate" ForeColor="Red"/>
                 <asp:Textbox cssClass="form-control" ID="txtBirthDate" runat="server" />
                     <div>
-                <img ID="CalendarPopUp" Class="img-rounded popup_icon" src="image/calendar.png" />
-                <ajaxToolkit:CalendarExtender ID="txtBirthDate_CalendarExtender" runat="server" TargetControlID="txtBirthDate" PopupButtonID="CalendarPopUp"/>
+                <img ID="CalendarPopUp1" width="40px" src="image/calendar.png" />
+                <ajaxToolkit:CalendarExtender ID="txtBirthDate_CalendarExtender" runat="server" TargetControlID="txtBirthDate" PopupButtonID="CalendarPopUp1"/>
                    </div>
             </td>
         </tr>
@@ -78,14 +64,10 @@
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="Input Hiredate" ControlToValidate="txtHireDate" ForeColor="Red"/>
                  <asp:Textbox cssClass="form-control" ID="txtHireDate" runat="server" />
                     <div>
-                <img ID="CalendarPopUp" Class="img-rounded popup_icon" src="image/calendar.png" />
-                <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtHireDate" PopupButtonID="CalendarPopUp"/>
+               <img ID="CalendarPopUp2" width="40px" style="display: inline-block" src="image/calendar.png" />
+                <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtHireDate" PopupButtonID="CalendarPopUp2"/>
                    </div>
             </td>
-        </tr>
-        <tr>
-            <td class="form_left">&nbsp;</td>
-            <td class="form_right">&nbsp;</td>
         </tr>
         <tr>
             <td class="form_left">
@@ -134,7 +116,7 @@
         </tr>
     </table>
 </div>
-<input ID="btnnew"  type="button"  Class="btn btn-default button"  Value="New" OnClick="newaction()" />
+<asp:Button ID="btnNew"  cssClass="btn btn-default" runat="server" Text="New" OnClick="btnnew_Click" />
 <asp:Button ID="btnadd" CssClass="btn btn-success button" runat="server" Text="Add" OnClick="btnadd_Click" />
 <asp:GridView ID="GridView1" runat="server" CellPadding="4" ForeColor="#333333" GridLines="None" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
     <AlternatingRowStyle BackColor="White" />
