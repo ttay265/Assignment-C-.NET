@@ -1,33 +1,30 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="OrderForm.aspx.cs" Inherits="TSQLWEB.OrderForm" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="Stylesheets" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <br />
-    <div class="panel panel-success"> 
+    <div class="panel panel-success">
         <div class="panel-heading">
             <h3 class="panel-title">Basic Information</h3>
         </div>
         <div class="panel-body">
             <table cellpadding="5px">
                 <tr>
-                    <td class="form_left">Order No. </td>
-                </tr>
-                <tr>
                     <td class="form_left">Customer:
-                        <asp:TextBox ID="txtEmployee" CssClass="form-control" runat="server" Width="206px" Height="180px" MaxLength="200" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtEmployee" ErrorMessage="Invalid Employee!" ForeColor="Red"></asp:RequiredFieldValidator>
+                     <ajaxToolkit:ComboBox CssClass="form-control" ID="cbCustomer" runat="server"></ajaxToolkit:ComboBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="cbCustomer" ErrorMessage="Invalid Employee!" ForeColor="Red"></asp:RequiredFieldValidator>
                     </td>
-                
+
                     <td class="form_right">Employee:
-                        <asp:TextBox ID="TextBox1" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtCustomerID" ErrorMessage="Invalid Customer Name!" ForeColor="Red"></asp:RequiredFieldValidator>
+                     <ajaxToolkit:ComboBox CssClass="form-control" ID="cbEmployeeID" runat="server"></ajaxToolkit:ComboBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="cbEmployeeID" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
+
                     </td>
-               
-                    
                 </tr>
             </table>
-
         </div>
     </div>
     <div class="panel panel-info">
@@ -37,81 +34,81 @@
         <div class="panel-body">
             <table cellpadding="5px">
                 <tr>
-                    <td style="width: 20%; text-align: right">Customer:</td>
-                    <td style="width: 70%">
-                        <asp:TextBox ID="TextBox2" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtCustomerID" ErrorMessage="Invalid Customer Name!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    <td class="form_left">Order Date:
+                        <asp:TextBox CssClass="form-control" ID="txtOrderDate" runat="server" />
+                            <img id="CalendarPopUp1" width="40px" src="image/calendar.png" />
+                            <ajaxToolkit:CalendarExtender ID="txtBirthDate_CalendarExtender" runat="server" TargetControlID="txtOrderDate" PopupButtonID="CalendarPopUp1" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtOrderDate" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
+                    <td class="form_right">Required Date:
+                        <asp:TextBox CssClass="form-control" ID="txtReqiredDate" runat="server" />
+                            <img id="CalendarPopUp2" width="40px" src="image/calendar.png" />
+                            <ajaxToolkit:CalendarExtender ID="txtRequireDate_CalendarExtender" runat="server" TargetControlID="txtReqiredDate" PopupButtonID="CalendarPopUp2" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtReqiredDate" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
                 <tr>
-                    <td style="width: 20%; text-align: right">Customer:</td>
-                    <td style="width: 70%">
-                        <asp:TextBox ID="TextBox3" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtCustomerID" ErrorMessage="Invalid Customer Name!" ForeColor="Red"></asp:RequiredFieldValidator>
+                     <td class="form_left">Required Date:
+                        <asp:TextBox CssClass="form-control" ID="txtShippedDate" runat="server" />
+                            <img id="CalendarPopUp3" width="40px" src="image/calendar.png" />
+                            <ajaxToolkit:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtShippedDate" PopupButtonID="CalendarPopUp2" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtShippedDate" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
             </table>
-
         </div>
     </div>
     <div class="panel panel-warning">
         <div class="panel-heading">
-            <h3 class="panel-title">Order Form</h3>
+            <h3 class="panel-title">Shipping Information</h3>
         </div>
         <div class="panel-body">
-            <table cellpadding="5px">
-                <tr>
-                    <td style="width: 20%; text-align: right">Customer:</td>
-                    <td style="width: 70%">
-                        <asp:TextBox ID="TextBox5" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtCustomerID" ErrorMessage="Invalid Customer Name!" ForeColor="Red"></asp:RequiredFieldValidator>
+          <tr>
+                    <td class="form_left">Shipper:
+                     <ajaxToolkit:ComboBox CssClass="form-control" ID="cbShipperID" runat="server"></ajaxToolkit:ComboBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="cbShipperID" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
+
+                    <td class="form_right">Freight:
+                        <asp:TextBox ID="txtFreight" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtFreight" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
                     </td>
                 </tr>
-                <tr>
-                    <td style="width: 20%; text-align: right">Customer:</td>
-                    <td style="width: 70%">
-                        <asp:TextBox ID="TextBox6" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtCustomerID" ErrorMessage="Invalid Customer Name!" ForeColor="Red"></asp:RequiredFieldValidator>
+            <tr>
+                 <td class="form_left">Ship Name:
+                        <asp:TextBox ID="txtShipperName" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtShipperName" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
                     </td>
-                </tr>
-                <tr>
-	<td style="width: 20%; text-align:right">Employee:</td>
-	<td style="width: 70%"><asp:TextBox ID="TextBox4" cssClass="form-control" runat="server" Width="206px" Height="180px" MaxLength="200"/>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ControlToValidate="txtEmployee" ErrorMessage="Invalid Employee!" ForeColor="Red"></asp:RequiredFieldValidator>
-        </td>
-	</tr>
-
-                <tr>
-	<td style="width: 20%; text-align:right">Employee:</td>
-	<td style="width: 70%"><asp:TextBox ID="TextBox7" cssClass="form-control" runat="server" Width="206px" Height="180px" MaxLength="200"/>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtEmployee" ErrorMessage="Invalid Employee!" ForeColor="Red"></asp:RequiredFieldValidator>
-        </td>
-	</tr>
-<tr>
-	<td style="width: 20%; text-align:right">Employee:</td>
-	<td style="width: 70%"><asp:TextBox ID="TextBox8" cssClass="form-control" runat="server" Width="206px" Height="180px" MaxLength="200"/>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtEmployee" ErrorMessage="Invalid Employee!" ForeColor="Red"></asp:RequiredFieldValidator>
-        </td>
-	</tr>
-<tr>
-	<td style="width: 20%; text-align:right">Employee:</td>
-	<td style="width: 70%"><asp:TextBox ID="TextBox9" cssClass="form-control" runat="server" Width="206px" Height="180px" MaxLength="200"/>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtEmployee" ErrorMessage="Invalid Employee!" ForeColor="Red"></asp:RequiredFieldValidator>
-        </td>
-	</tr>
-<tr>
-	<td style="width: 20%; text-align:right">Employee:</td>
-	<td style="width: 70%"><asp:TextBox ID="TextBox10" cssClass="form-control" runat="server" Width="206px" Height="180px" MaxLength="200"/>
-        <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtEmployee" ErrorMessage="Invalid Employee!" ForeColor="Red"></asp:RequiredFieldValidator>
-        </td>
-	</tr>
-
-            </table>
+                 <td class="form_right">Ship Address:
+                        <asp:TextBox ID="txtShipAddress" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ControlToValidate="txtShipAddress" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
+            </tr>
+             <tr>
+                 <td class="form_left">Ship City:
+                        <asp:TextBox ID="txtShipCity" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="txtShipCity" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
+                 <td class="form_right">Ship Region:
+                        <asp:TextBox ID="txtShipRegion" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ControlToValidate="txtShipRegion" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
+            </tr>
+             <tr>
+                 <td class="form_left">Ship Postal Code:
+                        <asp:TextBox ID="txtShipPostalCode" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator12" runat="server" ControlToValidate="txtShipPostalCode" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
+                 <td class="form_right">Ship Country:
+                        <ajaxToolkit:ComboBox ID="cbShipCountry" CssClass="form-control" runat="server" Width="206px" MaxLength="15" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator13" runat="server" ControlToValidate="cbShipCountry" ErrorMessage="Field Empty!" ForeColor="Red"></asp:RequiredFieldValidator>
+                    </td>
+            </tr>
 
         </div>
     </div>
 
-    
+
 
     <br />
     <div style="margin: auto">

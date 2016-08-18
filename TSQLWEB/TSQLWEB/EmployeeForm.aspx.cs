@@ -11,7 +11,6 @@ namespace TSQLWEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Write("<script language='javascript'>$('#alert').alert('close')</script>");
             if (!IsPostBack)
             {
                 LoadEmployeeInfo();
