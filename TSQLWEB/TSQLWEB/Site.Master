@@ -62,10 +62,19 @@
 							role="button" aria-expanded="false">Production<span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a runat="server" href="~/SupplierForm">Supplier</a></li>
+								<li><a runat="server" href="~/CategoryForm.aspx">Categories</a></li>
 							</ul>
 						
 						</li>
-						<li><a runat="server" href="~/SupplierForm">Sales</a></li>
+                        <li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+							role="button" aria-expanded="false">Sales   <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a runat="server" href="~/EmployeeForm.aspx">Employee</a></li>
+								<li><a runat="server" href="~/ShipperForm.aspx">Shippers</a></li>
+							</ul>
+						
+						</li>
 						<li><a runat="server" href="~/SupplierForm">HR</a></li>
 						 <li><a runat="server" href="~/About">About</a></li>
                         <li><a runat="server" href="~/Contact">Contact</a></li>

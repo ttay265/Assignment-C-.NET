@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SupplierForm.aspx.cs" Inherits="TSQLWEB.SupplierForm"  ValidateRequest="true"%>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="ajaxToolkit" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <br/>
 	<div class="panel panel-info">
@@ -9,7 +10,9 @@
           <table cellpadding="5px">
 	<tr >
 	<td style="width: 20%; text-align:right"> Company Name:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtCompanyName" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtCompanyName" runat="server" Width="206px"></asp:TextBox><asp:ImageButton ID="btnAction" runat="server" ImageUrl="~/favicon.ico" />
+        <ajaxToolkit:CalendarExtender ID="txtCompanyName_CalendarExtender" runat="server" TargetControlID="txtCompanyName" PopupButtonID="btnAction" />
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Contact Name:</td>

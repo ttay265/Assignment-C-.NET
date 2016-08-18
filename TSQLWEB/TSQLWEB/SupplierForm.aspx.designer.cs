@@ -22,6 +22,24 @@ namespace TSQLWEB {
         protected global::System.Web.UI.WebControls.TextBox txtCompanyName;
         
         /// <summary>
+        /// btnAction control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton btnAction;
+        
+        /// <summary>
+        /// txtCompanyName_CalendarExtender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.CalendarExtender txtCompanyName_CalendarExtender;
+        
+        /// <summary>
         /// txtContactName control.
         /// </summary>
         /// <remarks>
