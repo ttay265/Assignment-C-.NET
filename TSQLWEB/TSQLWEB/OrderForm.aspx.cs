@@ -58,11 +58,12 @@ namespace TSQLWEB
         }
         
         bool addOrder() {
-
+            return true;
         }
 
         bool updateOrder()
         {
+            return true;
 
         }
 
