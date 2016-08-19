@@ -71,6 +71,7 @@
 							role="button" aria-expanded="false">Sales   <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
 								<li><a runat="server" href="~/ShipperForm.aspx">Shippers</a></li>
+								<li><a runat="server" href="CustomerWeb.aspx">Customers</a></li>
 							</ul>
 						
 						</li>

@@ -10,7 +10,7 @@
 namespace TSQLWEB {
     
     
-    public partial class SupplierForm {
+    public partial class CustomerWeb {
         
         /// <summary>
         /// txtCompanyName control.
@@ -22,15 +22,6 @@ namespace TSQLWEB {
         protected global::System.Web.UI.WebControls.TextBox txtCompanyName;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
-        /// <summary>
         /// txtContactName control.
         /// </summary>
         /// <remarks>
@@ -38,15 +29,6 @@ namespace TSQLWEB {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtContactName;
-        
-        /// <summary>
-        /// RequiredFieldValidator2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// txtContactTitle control.
@@ -58,15 +40,6 @@ namespace TSQLWEB {
         protected global::System.Web.UI.WebControls.TextBox txtContactTitle;
         
         /// <summary>
-        /// RequiredFieldValidator3 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
-        
-        /// <summary>
         /// txtAddress control.
         /// </summary>
         /// <remarks>
@@ -74,15 +47,6 @@ namespace TSQLWEB {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAddress;
-        
-        /// <summary>
-        /// RequiredFieldValidator4 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
         /// txtCity control.
@@ -112,31 +76,13 @@ namespace TSQLWEB {
         protected global::System.Web.UI.WebControls.TextBox txtPostalCode;
         
         /// <summary>
-        /// RequiredFieldValidator7 control.
+        /// txtCountry control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
-        
-        /// <summary>
-        /// cbCountry control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cbCountry;
-        
-        /// <summary>
-        /// RequiredFieldValidator10 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator10;
+        protected global::System.Web.UI.WebControls.TextBox txtCountry;
         
         /// <summary>
         /// txtPhone control.
@@ -146,15 +92,6 @@ namespace TSQLWEB {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPhone;
-        
-        /// <summary>
-        /// RequiredFieldValidator8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
         
         /// <summary>
         /// txtFax control.
@@ -184,21 +121,12 @@ namespace TSQLWEB {
         protected global::System.Web.UI.WebControls.Button btnAdd;
         
         /// <summary>
-        /// lblStatus control.
+        /// dgvDataList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatus;
-        
-        /// <summary>
-        /// GridView1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView GridView1;
+        protected global::System.Web.UI.WebControls.GridView dgvDataList;
     }
 }

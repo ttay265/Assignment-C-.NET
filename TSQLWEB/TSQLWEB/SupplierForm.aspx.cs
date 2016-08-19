@@ -12,7 +12,7 @@ namespace TSQLWEB
         TSQLFundamentals2008Entities Entity = new TSQLFundamentals2008Entities();
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Write("<script language='javascript'>$('#alert').alert('close')</script>");
+            //Response.Write("<script language='javascript'>$('#alert').alert('close')</script>");
             if (!IsPostBack)
             {
                 LoadSupInfo();
@@ -40,55 +40,55 @@ namespace TSQLWEB
             btnAdd.Text = "Add";
             btnAdd.CssClass = "btn btn-success";
         }
-        bool ValidateInput()
-        {
-            if (txtCompanyName.Text == "")
-            {
-                AlertFailed("Invalid company name");
+        //bool ValidateInput()
+        //{
+        //    if (txtCompanyName.Text == "")
+        //    {
+        //        lblStatusCompany.Text = "Invalid company name!";
+        //        return false;
+        //    }
 
-                return false;
-            }
+        //    if (txtContactName.Text == "")
+        //    {
+        //        lblStatusContactName.Text = "Invalid contact name!";
+        //        return false;
+                
+        //    }
 
-            if (txtContactName.Text == "")
-            {
-                AlertFailed("Invalid contact name");
-                return false;
-            }
+        //    if (txtContactTitle.Text == "")
+        //    {
+        //        lblStatusContactTitle.Text = "Invalid contact title!";
+        //        return false;
+        //    }
+        //    if (txtAddress.Text == "")
+        //    {
+        //        lblStatusAddress.Text = "Invalid address!";
+        //        return false;
+        //    }
+        //    if (txtCity.Text == "")
+        //    {
+        //        lblStatusCity.Text = "Invalid city!";
+        //        return false;
+        //    }
 
-            if (txtContactTitle.Text == "")
-            {
-                AlertFailed("Invalid contact title");
-                return false;
-            }
-            if (txtAddress.Text == "")
-            {
-                AlertFailed("Invalid Address");
-                return false;
-            }
-            if (txtCity.Text == "")
-            {
-                AlertFailed("Invalid City");
-                return false;
-            }
-
-            if (txtPostalCode.Text == "")
-            {
-                AlertFailed("Invalid Postal code");
-                return false;
-            }
-            if (txtPhone.Text == "")
-            {
-                AlertFailed("Invalid phone");
-                return false;
-            }
-            if (cbCountry.SelectedValue == "-1")
-            {
-                AlertFailed("Invalid National");
-                return false;
-            }
-
-            return true;
-        }
+        //    if (txtPostalCode.Text == "")
+        //    {
+        //        lblStatusPostalCode.Text = "Invalid  postal code!";
+        //        return false;
+        //    }
+        //    if (txtPhone.Text == "")
+        //    {
+        //        lblStatusPhone.Text = "Invalid phone!";
+        //        return false;
+        //    }
+        //    if (cbCountry.SelectedValue == "-1")
+        //    {
+        //        lblStatusCountry.Text = "Invalid  country";
+        //        return false;
+        //    }
+        //    lblStatusCompany.Text = "";
+        //    return true;
+        //}
 
         bool AddSup()
         {
@@ -118,9 +118,9 @@ namespace TSQLWEB
         void AlertSuccess(string progress)
         {
             //Alert.Visible = true;
-            //Alert.CssClass="alert alert-success";
+            //Alert.CssClass = "alert alert-success";
             //lblStrong.Text = "Success!fully!";
-            Response.Write("<script language='javascript'>$('#alert').alert()</script>");
+            Response.Write("<script language='javascript'>alert('Succcessfull! " + progress + " ')</script>");
         }
 
         void AlertFailed(string error)
@@ -133,11 +133,10 @@ namespace TSQLWEB
 
 
         }
+        
 
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (ValidateInput())
-            {
                 switch (btnAdd.Text)
                 {
                     case "Add":
@@ -148,11 +147,11 @@ namespace TSQLWEB
                                 LoadSupInfo();
                                 if (done)
                                 {
-                                    AlertSuccess("Added");
+                                    AlertSuccess(" Added");
                                 }
                                 else
                                 {
-                                    AlertFailed("Add Failed!");
+                                    AlertFailed("Add Fail");
                                 }
 
                             }
@@ -169,17 +168,16 @@ namespace TSQLWEB
                                 LoadSupInfo();
                                 if (result)
                                 {
-                                    AlertSuccess("Updating");
+                                    AlertSuccess(" Updated");
                                 }
                                 else
                                 {
-                                    AlertFailed("Update Failed!");
+                                    AlertFailed("Update Fail");
                                 }
                             }
                             catch (Exception)
                             {
-                                string msgScript = "<script>alert('Update failed');</script>";
-                                Response.Write(msgScript);
+                            
                             }
 
                             break;
@@ -187,13 +185,6 @@ namespace TSQLWEB
                     default:
                         break;
                 }
-            }
-            else
-            {
-                //string msgScript = "<script>alert('Invalid Input');</script>";
-                //Response.Write(msgScript);
-                return;
-            }
         }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -201,11 +192,11 @@ namespace TSQLWEB
             btnAdd.Text = "Update";
             btnAdd.CssClass = "btn btn-info";
             GridViewRow r = GridView1.SelectedRow;
-            txtCompanyName.Text = r.Cells[2].Text;
-            txtContactName.Text = r.Cells[3].Text;
-            txtContactTitle.Text = r.Cells[4].Text;
-            txtAddress.Text =Server.HtmlDecode( r.Cells[5].Text);
-            txtCity.Text = r.Cells[6].Text;
+            txtCompanyName.Text = Server.HtmlDecode(r.Cells[2].Text);
+            txtContactName.Text = Server.HtmlDecode(r.Cells[3].Text);
+            txtContactTitle.Text = Server.HtmlDecode(r.Cells[4].Text);
+            txtAddress.Text = Server.HtmlDecode( r.Cells[5].Text);
+            txtCity.Text = Server.HtmlDecode(r.Cells[6].Text);
             txtRegion.Text = Server.HtmlDecode(r.Cells[7].Text);
             txtPostalCode.Text = r.Cells[8].Text;
             cbCountry.Text = r.Cells[9].Text;
@@ -269,12 +260,13 @@ namespace TSQLWEB
             {
                 Entity.Suppliers.Remove(sup);
                 Entity.SaveChanges();
+                AlertSuccess("Deleted");
                 return true;
+
             }
             catch (Exception)
             {
-                string msgScript = "<script>alert('Can't delete this people');</script>";
-                Response.Write(msgScript);
+                AlertFailed("can not delete this people!");
                 return false;
             }
 

@@ -46,7 +46,79 @@ namespace TSQLWEB
             cbCustomer.Text = SelectedRow.Cells[2].Text;
             cbCustomer.Text = SelectedRow.Cells[3].Text;
             txtOrderDate.Text = SelectedRow.Cells[4].Text;
-            txtReqiredDate.Text 
+        }
+        void AlertSuccess(string progress)
+        {
+            Response.Write("<script language='javascript'>alert('Successful!" + progress + "')</script>");
+        }
+
+        void AlertFailed(string error)
+        {
+            Response.Write("<script language='javascript'>alert('Failed! " + error + " ')</script>");
+        }
+        
+        bool addOrder() {
+
+        }
+
+        bool updateOrder()
+        {
+
+        }
+
+        protected void btnAdd_Click(object sender, EventArgs e)
+        {
+
+            switch (btnAdd.Text)
+            {
+                case "Add":
+                    {
+                        try
+                        {
+                            bool done = addOrder();
+                            LoadOrderInfo();
+                            if (done)
+                            {
+                                AlertSuccess("Added");
+                            }
+                            else
+                            {
+                                AlertFailed("Add Failed!");
+                            }
+
+                        }
+                        catch (Exception)
+                        {
+                        }
+                        break;
+                    }
+                case "Update":
+                    {
+                        try
+                        {
+                            bool result = updateOrder();
+                            LoadOrderInfo();
+                            if (result)
+                            {
+                                AlertSuccess("Updated");
+                            }
+                            else
+                            {
+                                AlertFailed("Update Failed!");
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            string msgScript = "<script>alert('Update failed');</script>";
+                            Response.Write(msgScript);
+                        }
+
+                        break;
+                    }
+                default:
+                    break;
+            }
+
         }
 
     }

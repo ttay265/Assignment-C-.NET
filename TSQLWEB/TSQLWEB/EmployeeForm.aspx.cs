@@ -11,6 +11,7 @@ namespace TSQLWEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             if (!IsPostBack)
             {
                 LoadEmployeeInfo();
@@ -40,6 +41,8 @@ namespace TSQLWEB
             txtcountry.Text = "";
             txtphone.Text = "";
             txtmrgid.Text = "";
+            btnadd.Text = "Add";
+            btnadd.CssClass = "btn btn-success button";
         }
         bool addEmployee()
         {
@@ -58,8 +61,11 @@ namespace TSQLWEB
                 emp.postalcode = txtpostal.Text;
                 emp.country = txtcountry.Text;
                 emp.phone = txtphone.Text;
-                emp.mgrid = int.Parse(txtmrgid.Text);
-
+                int mgid;
+                if (int.TryParse(txtmrgid.Text, out mgid))
+                {
+                    emp.mgrid = mgid;
+                }
                 entity.Employees.Add(emp);
                 entity.SaveChanges();
                 return true;
@@ -68,103 +74,91 @@ namespace TSQLWEB
             {
                 return false;
             }
-          
+
         }
         void AlertSuccess(string progress)
         {
-            //Alert.Visible = true;
-            //Alert.CssClass="alert alert-success";
-            //lblStrong.Text = "Success!fully!";
-            Response.Write("<script language='javascript'>$('#alert').alert()</script>");
+            Response.Write("<script language='javascript'>alert('Successful!" + progress + "')</script>");
         }
 
         void AlertFailed(string error)
         {
-            //Alert.Visible = true;
-            //Alert.CssClass = "alert alert-danger";
-            //lblStrong.Text = "Failed!";
-            //lblMessage.Text = error + " !";
             Response.Write("<script language='javascript'>alert('Failed! " + error + " ')</script>");
-
-
         }
         protected void btnadd_Click(object sender, EventArgs e)
         {
 
-                switch (btnadd.Text)
-                {
-                    case "Add":
+            switch (btnadd.Text)
+            {
+                case "Add":
+                    {
+                        try
                         {
-                            try
+                            bool done = addEmployee();
+                            LoadEmployeeInfo();
+                            if (done)
                             {
-                                bool done = addEmployee();
-                                LoadEmployeeInfo();
-                                if (done)
-                                {
-                                    AlertSuccess("Added");
-                                }
-                                else
-                                {
-                                    AlertFailed("Add Failed!");
-                                }
-
+                                AlertSuccess("Added");
                             }
-                            catch (Exception)
+                            else
                             {
-                            }
-                            break;
-                        }
-                    case "Update":
-                        {
-                            try
-                            {
-                                bool result = updateEmployee();
-                                LoadEmployeeInfo();
-                                if (result)
-                                {
-                                    AlertSuccess("Updating");
-                                }
-                                else
-                                {
-                                    AlertFailed("Update Failed!");
-                                }
-                            }
-                            catch (Exception)
-                            {
-                                string msgScript = "<script>alert('Update failed');</script>";
-                                Response.Write(msgScript);
+                                AlertFailed("Add Failed!");
                             }
 
-                            break;
                         }
-                    default:
+                        catch (Exception)
+                        {
+                        }
                         break;
-                }
-            }
-           
+                    }
+                case "Update":
+                    {
+                        try
+                        {
+                            bool result = updateEmployee();
+                            LoadEmployeeInfo();
+                            if (result)
+                            {
+                                AlertSuccess("Updated");
+                            }
+                            else
+                            {
+                                AlertFailed("Update Failed!");
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            string msgScript = "<script>alert('Update failed');</script>";
+                            Response.Write(msgScript);
+                        }
 
-       
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
 
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             btnadd.Text = "Update";
             btnadd.CssClass = "btn btn-info";
             GridViewRow r = GridView1.SelectedRow;
-            txtlastname.Text = Server.HtmlDecode(r.Cells[3].Text);
-            txtfirstname.Text = Server.HtmlDecode(r.Cells[4].Text);
-            txttitle.Text = Server.HtmlDecode(r.Cells[5].Text);
-            txttitleofcourt.Text = Server.HtmlDecode(r.Cells[6].Text);
-            txtBirthDate.Text = Server.HtmlDecode(r.Cells[7].Text);
-            txtHireDate.Text = Server.HtmlDecode(r.Cells[8].Text);
-            txtaddress.Text = Server.HtmlDecode(r.Cells[9].Text);
-            txtcity.Text = Server.HtmlDecode(r.Cells[10].Text);
-            txtregion.Text = Server.HtmlDecode(r.Cells[11].Text);
-            txtpostal.Text = Server.HtmlDecode(r.Cells[12].Text);
-            txtcountry.Text = Server.HtmlDecode(r.Cells[13].Text);
-            txtphone.Text = Server.HtmlDecode(r.Cells[14].Text);
-            txtmrgid.Text = Server.HtmlDecode(r.Cells[15].Text);
+            txtlastname.Text = Server.HtmlDecode(r.Cells[2].Text);
+            txtfirstname.Text = Server.HtmlDecode(r.Cells[3].Text);
+            txttitle.Text = Server.HtmlDecode(r.Cells[4].Text);
+            txttitleofcourt.Text = Server.HtmlDecode(r.Cells[5].Text);
+            txtBirthDate.Text = Server.HtmlDecode(r.Cells[6].Text);
+            txtHireDate.Text = Server.HtmlDecode(r.Cells[7].Text);
+            txtaddress.Text = Server.HtmlDecode(r.Cells[8].Text);
+            txtcity.Text = Server.HtmlDecode(r.Cells[9].Text);
+            txtregion.Text = Server.HtmlDecode(r.Cells[10].Text);
+            txtpostal.Text = Server.HtmlDecode(r.Cells[11].Text);
+            txtcountry.Text = Server.HtmlDecode(r.Cells[12].Text);
+            txtphone.Text = Server.HtmlDecode(r.Cells[13].Text);
+            txtmrgid.Text = Server.HtmlDecode(r.Cells[14].Text);
         }
-         bool updateEmployee()
+        bool updateEmployee()
         {
 
             GridViewRow r = GridView1.SelectedRow;
@@ -198,33 +192,40 @@ namespace TSQLWEB
             }
             return false;
         }
-         bool deleteSup(GridViewDeleteEventArgs e)
-         {
+        bool deleteEmployee(GridViewDeleteEventArgs e)
+        {
 
-             GridViewRow r = GridView1.Rows[e.RowIndex];
-             Employee emp = new Employee();
-             foreach (Employee em in entity.Employees)
-             {
-                 if (em.empid == int.Parse(r.Cells[1].Text))
-                 {
-                     emp = em;
-                     break;
-                 }
-             }
-             try
-             {
-                 entity.Employees.Remove(emp);
-                 entity.SaveChanges();
-                 return true;
-             }
-             catch (Exception)
-             {
-                 string msgScript = "<script>alert('Can't delete this people');</script>";
-                 Response.Write(msgScript);
-                 return false;
-             }
+            GridViewRow r = GridView1.Rows[e.RowIndex];
+            Employee emp = new Employee();
+            foreach (Employee em in entity.Employees)
+            {
+                if (em.empid == int.Parse(r.Cells[1].Text))
+                {
+                    emp = em;
+                    break;
+                }
+            }
+            try
+            {
+                entity.Employees.Remove(emp);
+                entity.SaveChanges();
+                AlertSuccess(" Deleted ");
+                return true;
+            }
+            catch (Exception)
+            {
+                Response.Write("<script> alert('Cannot Delete This Employee') </script>");
 
-         }
+                return false;
+            }
+
+        }
+
+        protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            deleteEmployee(e);
+            LoadEmployeeInfo();
+        }
 
 
     }

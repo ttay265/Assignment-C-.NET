@@ -1,5 +1,6 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SupplierForm.aspx.cs" Inherits="TSQLWEB.SupplierForm"  ValidateRequest="true"%>
-<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+﻿<%@ page title="" language="C#" masterpagefile="~/Site.Master" autoeventwireup="true" codebehind="SupplierForm.aspx.cs" inherits="TSQLWEB.SupplierForm" validaterequest="true" %>
+
+<asp:content id="Content1" contentplaceholderid="MainContent" runat="server">
     <br/>
 	<div class="panel panel-info">
         <div class="panel-heading">
@@ -9,25 +10,33 @@
           <table cellpadding="5px">
 	<tr >
 	<td style="width: 20%; text-align:right" > Company Name:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtCompanyName" cssClass="form-control" runat="server" Width="206px"/><asp:RequiredFieldValidator runat="server" ControlToValidate="txtCompanyName"
-                    CssClass="text-danger" ErrorMessage="The Company name field is required." /></td>
+	<td style="width: 70%"><asp:TextBox ID="txtCompanyName" cssClass="form-control" runat="server" Width="206px"/>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="txtCompanyName" ErrorMessage="Please input Company name!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Contact Name:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtContactName" cssClass="form-control" runat="server" Width="206px"/><asp:RequiredFieldValidator runat="server" ControlToValidate="txtContactName"
-                    CssClass="text-danger" ErrorMessage="The Contact name field is required." /></td>
+	<td style="width: 70%"><asp:TextBox ID="txtContactName" cssClass="form-control" runat="server" Width="206px"/>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="txtContactName" ErrorMessage="Please input Contact name!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Contact Title:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtContactTitle" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtContactTitle" cssClass="form-control" runat="server" Width="206px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="txtContactTitle" ErrorMessage="Please input Contact title!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Address:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtAddress" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtAddress" cssClass="form-control" runat="server" Width="206px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txtAddress" ErrorMessage="Please input Address!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">City:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtCity" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtCity" cssClass="form-control" runat="server" Width="206px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="txtCity" ErrorMessage="Please input City!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Region:</td>
@@ -35,7 +44,9 @@
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Postal Code:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtPostalCode" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtPostalCode" cssClass="form-control" runat="server" Width="206px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ControlToValidate="txtPostalCode" ErrorMessage="Please input Postal code!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Country:</td>
@@ -48,11 +59,15 @@
         <asp:ListItem>French</asp:ListItem>
         <asp:ListItem>Canada</asp:ListItem>
         <asp:ListItem>Cuba</asp:ListItem>
-    </asp:DropDownList></td>
+    </asp:DropDownList>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ControlToValidate="cbCountry" ErrorMessage="Please input Country!" ForeColor="#FF3300" InitialValue="-1"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Phone:</td>
-	<td style="width: 70%"><asp:TextBox ID="txtPhone" cssClass="form-control" runat="server" Width="206px"></asp:TextBox></td>
+	<td style="width: 70%"><asp:TextBox ID="txtPhone" cssClass="form-control" runat="server" Width="206px"></asp:TextBox>
+        <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ControlToValidate="txtPhone" ErrorMessage="Please input Phone!" ForeColor="#FF3300"></asp:RequiredFieldValidator>
+        </td>
 	</tr>
 	<tr>
 	<td style="width: 20%; text-align:right">Fax:</td>
@@ -66,17 +81,25 @@
 
 
     <br />
-	<div class="btn btn-default"> <asp:Button ID="btnNew"  runat="server" Text="New" OnClick="btnNew_Click" /></div>
-    <div class="btn btn-success"> <asp:Button ID="btnAdd" runat="server" Text="Add" OnClick="btnAdd_Click" /> </div>
+	 <asp:Button ID="btnNew" cssClass="btn btn-default"  runat="server" Text="New" OnClick="btnNew_Click" />
+     <asp:Button ID="btnAdd" cssClass="btn btn-success"  runat="server" Text="Add" OnClick="btnAdd_Click" />
 		
     <script>
    </script>
-        <div id="alert" class="alert alert-success fade in">
-    <a href="#" class="close" data-dismiss="alert" aria-label="close">Close &times;</a>
-    <strong>Success!</strong> Add completely! 
-    </div>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateSelectButton="True" AutoGenerateDeleteButton="True" OnRowDeleting="GridView1_RowDeleting" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+        <asp:Label ID="lblStatus" runat="server" ForeColor="#FF3300"></asp:Label>
+       
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateSelectButton="True" AutoGenerateDeleteButton="True" OnRowDeleting="GridView1_RowDeleting" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" BackColor="White" BorderColor="#DEDFDE" BorderStyle="None" BorderWidth="1px" CellPadding="4" ForeColor="Black" GridLines="Vertical">
+        <AlternatingRowStyle BackColor="White" />
+        <FooterStyle BackColor="#CCCC99" />
+        <HeaderStyle BackColor="#6B696B" Font-Bold="True" ForeColor="White" />
+        <PagerStyle BackColor="#F7F7DE" ForeColor="Black" HorizontalAlign="Right" />
+        <RowStyle BackColor="#F7F7DE" />
+        <SelectedRowStyle BackColor="#CE5D5A" Font-Bold="True" ForeColor="White" />
+        <sortedascendingcellstyle backcolor="#FBFBF2" />
+        <sortedascendingheaderstyle backcolor="#848384" />
+        <sorteddescendingcellstyle backcolor="#EAEAD3" />
+        <sorteddescendingheaderstyle backcolor="#575357" />
 	</asp:GridView>
 
     <br />
-</asp:Content>
+</asp:content>
